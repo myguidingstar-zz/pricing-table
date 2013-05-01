@@ -1,14 +1,13 @@
-
 {
   "name": "angular-cl2",
   "version": "0.2.0",
   "description": "Angular macros for ChlorineJS (a subset of Clojure)",
   "scripts": {
-    "watch": "cl2c -d -p test/test.cl2",
-    "live-test": "testem  -f test/testem.json",
-    "bare-compile": "cl2c -1 -b dev/main.cl2",
-    "compile": "cl2c -1 -B src/main.cl2",
-    "pretest": "cl2c -1 -d test/test.cl2",
+    "watch": "cl2c -d -p test/test.cl2 test/test.hic",
+    "live-test": "testem -f test/testem.json",
+    "bare-compile": "cl2c -1 -b src/main.cl2 src/index.hic",
+    "compile": "cl2c -1 -B src/main.cl2 src/index.hic",
+    "pretest": "cl2c -1 -d test/test.cl2 test/test.hic",
     "test": "testem  -s phantomjs -f test/testem.json ci"
   },
   "repository": {
@@ -27,7 +26,7 @@
   },
   "analyze": false,
   "devDependencies": {
-    "chloric"  :  "0.1.10",
+    "chloric"  :  "0.1.11",
     "testem"   :  "*"
   },
   "license": "EPL",
