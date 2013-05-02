@@ -32,20 +32,22 @@
   [:div.container
    [:h1 "Hello world"]
    [:div.span12 {:ng-controller "pricingCtrl"}
-    [:table.table.table-condensed.table-bordered
+    [:table.table.table-condensed       ;.table-bordered
      {:ng-repeat "feature in features"}
      [:tr
-      [:td {:ng-style "myStyle"
-            :tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
-            :tooltip-placement "right"}
+      [:td {:ng-style "myStyle"}
        [:h2 "{{feature.name}}"
-        [:i.icon-question-sign.pull-right.icon-muted]]]
+        [:i.icon-question-sign.pull-right.icon-muted.hidden-phone
+         {:tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
+          :tooltip-placement "right"}]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
-       [:h3.text-center "{{choice}}" [:i.icon-ok.icon-muted]]]]]]]
+       ;;icon-muted
+       [:h3.text-center [:i.icon-ok.icon-success " "] "{{choice}}"]]]]]]
+
   #_[:div.span12
-   [:p "My controller: {{addTwo(2)}}"]
-   [:p "{{serviceAdd(5)}}"]
-   [:p "My filter: {{2|myFilter}}"]
-   [:p {:my-directive "3"}]
-   [:div {:my-directive "someNumber"}]]]]
+     [:p "My controller: {{addTwo(2)}}"]
+     [:p "{{serviceAdd(5)}}"]
+     [:p "My filter: {{2|myFilter}}"]
+     [:p {:my-directive "3"}]
+     [:div {:my-directive "someNumber"}]]]]
