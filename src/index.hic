@@ -43,7 +43,8 @@
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        ;;icon-muted
-       [:h3.text-center [:i.icon-ok.icon-success " "] "{{choice}}"]]]]]]
+       [:h3.text-center.muted
+        [:i.icon-ok.icon-success.text-success " "] "{{choice}}"]]]]]]
 
   #_[:div.span12
      [:p "My controller: {{addTwo(2)}}"]
