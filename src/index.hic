@@ -10,6 +10,10 @@
    {:href "css/responsive.min.css",
     :rel "stylesheet"}]
   [:link
+   {:href
+    "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=vietnamese,latin"
+    :rel "stylesheet"}]
+  [:link
    {:href "more.css",
     :rel "stylesheet"}]
   [:script
@@ -25,14 +29,15 @@
      [:a.brand {:href "../"} "Bootswatch"]
      [:div#main-menu.nav-collapse.collapse
       ]]]]
+  [:h1 "Hello world"]
   [:div.span12 {:ng-controller "pricingCtrl"}
    [:table.table.table-bordered
     {:ng-repeat "feature in features"}
     [:tr
      [:td {:ng-style "myStyle"
-           :tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'+feature.desc+'<br />'}}"
+           :tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
            :tooltip-placement "right"}
-      "{{feature.name}}"]
+      [:h2 "{{feature.name}}"]]
      [:td {:ng-style "{{feature.choices|autoWidth}}"
            :ng-repeat "choice in feature.choices"}
       "{{choice}}"]]]]
