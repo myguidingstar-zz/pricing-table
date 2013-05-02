@@ -29,19 +29,21 @@
      [:a.brand {:href "../"} "Bootswatch"]
      [:div#main-menu.nav-collapse.collapse
       ]]]]
-  [:h1 "Hello world"]
-  [:div.span12 {:ng-controller "pricingCtrl"}
-   [:table.table.table-bordered
-    {:ng-repeat "feature in features"}
-    [:tr
-     [:td {:ng-style "myStyle"
-           :tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
-           :tooltip-placement "right"}
-      [:h2 "{{feature.name}}"]]
-     [:td {:ng-style "{{feature.choices|autoWidth}}"
-           :ng-repeat "choice in feature.choices"}
-      "{{choice}}"]]]]
-  [:div.span12
+  [:div.container
+   [:h1 "Hello world"]
+   [:div.span12 {:ng-controller "pricingCtrl"}
+    [:table.table.table-condensed.table-bordered
+     {:ng-repeat "feature in features"}
+     [:tr
+      [:td {:ng-style "myStyle"
+            :tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
+            :tooltip-placement "right"}
+       [:h2 "{{feature.name}}"
+        [:i.icon-question-sign.pull-right.icon-muted]]]
+      [:td {:ng-style "{{feature.choices|autoWidth}}"
+            :ng-repeat "choice in feature.choices"}
+       [:h3.text-center "{{choice}}" [:i.icon-ok.icon-muted]]]]]]]
+  #_[:div.span12
    [:p "My controller: {{addTwo(2)}}"]
    [:p "{{serviceAdd(5)}}"]
    [:p "My filter: {{2|myFilter}}"]
