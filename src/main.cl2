@@ -23,13 +23,13 @@
 (defcontroller pricingCtrl
   [$scope]
   (def$ features
-    [{:name "Foo" :image "http://placekitten.com/200/200"
+    [{:name "Foo" :image "http://placekitten.com/600/400"
       :desc "Lorem ipsum"
       :choices ["One" "Two" "Three" "Four"]}
-     {:name "Bar" :image "http://placekitten.com/200/200"
+     {:name "Bar" :image "http://placekitten.com/600/400"
       :desc "Lorem ipsum"
       :choices ["One" "Two" "Three" "Four"]}
-     {:name "Bazz"  :image "http://placekitten.com/200/200"
+     {:name "Bazz"  :image "http://placekitten.com/600/400"
       :desc "Lorem ipsum"
       :choices ["One" "Two" "Three"]}])
   (def$ myStyle
