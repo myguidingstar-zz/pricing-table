@@ -6,7 +6,8 @@
     "watch": "cl2c -d -p test/test.cl2 test/test.hic",
     "live-test": "testem -f test/testem.json",
     "bare-compile": "cl2c -1 -b src/main.cl2 src/index.hic",
-    "compile": "cl2c -1 -B src/main.cl2 src/index.hic",
+      "compile": "cl2c -p -B src/main.cl2 src/index.hic",
+      "compile-once": "cl2c -1 -B src/main.cl2 src/index.hic",
     "pretest": "cl2c -1 -d test/test.cl2 test/test.hic",
     "test": "testem  -s phantomjs -f test/testem.json ci"
   },

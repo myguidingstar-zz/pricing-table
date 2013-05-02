@@ -3,10 +3,10 @@
   [:script {:src "/testem/qunit.js"}]
   [:script {:src "/testem.js"}]
   [:link
-   {:href "components/bootstrap/css/bootstrap-awesome.min.css",
+   {:href "css/bootstrap.min.css",
     :rel "stylesheet"}]
   [:link
-   {:href "components/bootstrap/css/responsive.min.css",
+   {:href "css/responsive.min.css",
     :rel "stylesheet"}]
   [:link {:href "/testem/qunit.css", :rel "stylesheet"}]
   [:script {:src "components/angular/angular.min.js"}]
