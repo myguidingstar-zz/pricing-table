@@ -28,9 +28,7 @@
       :choices ["One" "Two" "Three" "Four"]}
      {:name "Bazz"  :image "http://placekitten.com/600/400"
       :desc "Lorem ipsum"
-      :choices ["One" "Two" "Three"]}])
-  (def$ myStyle
-    {:width "25%"}))
+      :choices ["One" "Two" "Three"]}]))
 
 (deffilter autoWidth []
   [choices]

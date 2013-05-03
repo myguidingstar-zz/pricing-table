@@ -33,7 +33,7 @@
     [:table.table.table-condensed       ;.table-bordered
      {:ng-repeat "feature in features"}
      [:tr
-      [:td {:ng-style "myStyle"}
+      [:td {:style "width: 25%"}
        [:h2 {:tooltip-html-unsafe
              "{{'<img src=\"'+feature.image+'\">'}}"
              :tooltip-placement "right"}
