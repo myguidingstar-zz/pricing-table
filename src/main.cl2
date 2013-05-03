@@ -13,13 +13,6 @@
       (. attrs -myDirective)
       (fn [value] (. elm (text (+ value 4))))))))
 
-(defcontroller myCtrl
-  [$scope myService]
-  (def$ someNumber 12)
-  (defn$ addTwo [n] {:result (+ n 2)})
-  (defn$ serviceAdd [n]
-    (myService.addThree n)))
-
 (defcontroller pricingCtrl
   [$scope]
   (def$ features
@@ -35,18 +28,13 @@
   (def$ myStyle
     {:width "25%"}))
 ;; example of specifying app name
-(defservice myApp myService
- []
- (defn! addThree [n] (+ n 3)))
-
-;; generic defmodule usage
-(defmodule myApp
-  (:filter (myFilter [] [s] (+ s 5))))
-
-(deffilter yourFilter []
-  [s]
-  (+ s 6))
 
 (deffilter autoWidth []
   [choices]
   {:width (+* "" (/ 75 (count choices)) "%")})
+
+(deffilter mouseClass []
+  [mouseState]
+  (if (= 1 mouseState)
+    ""
+    "icon-muted"))

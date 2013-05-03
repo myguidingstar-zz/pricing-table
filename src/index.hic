@@ -22,13 +22,11 @@
   [:script {:src "components/angular-bootstrap/ui-bootstrap-tpls.min.js"}]
   [:script {:src "main.js"}]]
  [:body
-  {:ng-controller "myCtrl"}
   [:div.navbar
    [:div.navbar-inner
     [:div.container
-     [:a.brand {:href "../"} "Bootswatch"]
-     [:div#main-menu.nav-collapse.collapse
-      ]]]]
+     [:a.brand {:href "../"} "Bluestrap"]
+     [:div#main-menu.nav-collapse.collapse]]]]
   [:div.container
    [:h1 "Hello world"]
    [:div.span12 {:ng-controller "pricingCtrl"}
@@ -37,18 +35,20 @@
      [:tr
       [:td {:ng-style "myStyle"}
        [:h2 "{{feature.name}}"
-        [:i.icon-question-sign.pull-right.icon-muted.hidden-phone
+        [:i.icon-question-sign.pull-right.hidden-phone
          {:tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
-          :tooltip-placement "right"}]]]
+          :tooltip-placement "right"
+          :ng-mouseover "mouseState=1"
+          :ng-mouseout "mouseState=0"
+          :ng-class "mouseState|mouseClass"}]]
+       [:ul ;; features from pricing choice
+        [:li "foo"]
+        [:li "foo"]
+        [:li "foo"]
+        [:li "foo"]
+        [:li "foo"]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        ;;icon-muted
        [:h3.text-center.muted
-        [:i.icon-ok.icon-success.text-success " "] "{{choice}}"]]]]]]
-
-  #_[:div.span12
-     [:p "My controller: {{addTwo(2)}}"]
-     [:p "{{serviceAdd(5)}}"]
-     [:p "My filter: {{2|myFilter}}"]
-     [:p {:my-directive "3"}]
-     [:div {:my-directive "someNumber"}]]]]
+        [:i.icon-ok.icon-success.text-success " "] "{{choice}}"]]]]]]]]
