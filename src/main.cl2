@@ -32,11 +32,11 @@
 (defcontroller pricingCtrl
   [$scope]
   (def$ features
-    [{:name "Feature Foo" :image "http://placekitten.com/600/400"
-      :choices ["10 M" "20 M" "30 M"]}
-     {:name "Feature Bar" :image "http://placekitten.com/600/400"
+    [{:name "Feature Foo"  :image "/img/feature.jpg"
       :choices [10 20 30]}
-     {:name "Feature Bazz"  :image "http://placekitten.com/600/400"
+     {:name "Feature Bar"  :image "/img/feature.jpg"
+      :choices [10 20 30]}
+     {:name "Feature Bazz" :image "/img/feature.jpg"
       :choices [10 20 30 40]}]))
 
 (deffilter autoWidth []
