@@ -3,15 +3,19 @@
 (defapp myApp [ui.bootstrap])
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
-(defdirective myDirective
+
+(defdirective mouseoverRemoveClass
   []
   ;; can be a directive-definition object or a link function
   (fn [scope elm attrs]
-    (.
-     scope
-     ($watch
-      (. attrs -myDirective)
-      (fn [value] (. elm (text (+ value 4))))))))
+    (..
+     elm
+     (bind
+      "mouseenter"
+      (fn [] (. elm (removeClass attrs.mouseoverRemoveClass))))
+     (bind
+      "mouseleave"
+      (fn [] (. elm (addClass attrs.mouseoverRemoveClass)))))))
 
 (defcontroller pricingCtrl
   [$scope]
@@ -32,9 +36,3 @@
 (deffilter autoWidth []
   [choices]
   {:width (+* "" (/ 75 (count choices)) "%")})
-
-(deffilter mouseClass []
-  [mouseState]
-  (if (= 1 mouseState)
-    ""
-    "icon-muted"))

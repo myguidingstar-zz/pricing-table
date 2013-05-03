@@ -34,13 +34,12 @@
      {:ng-repeat "feature in features"}
      [:tr
       [:td {:ng-style "myStyle"}
-       [:h2 "{{feature.name}}"
-        [:i.icon-question-sign.pull-right.hidden-phone
-         {:tooltip-html-unsafe "{{'<image src=\"'+feature.image+'\">'}}"
-          :tooltip-placement "right"
-          :ng-mouseover "mouseState=1"
-          :ng-mouseout "mouseState=0"
-          :ng-class "mouseState|mouseClass"}]]
+       [:h2 {:tooltip-html-unsafe
+             "{{'<img src=\"'+feature.image+'\">'}}"
+             :tooltip-placement "right"}
+        "{{feature.name}}"
+        [:i.icon-question-sign.pull-right.hidden-phone.icon-muted
+         {:mouseover-remove-class "icon-muted"}]]
        [:ul ;; features from pricing choice
         [:li "foo"]
         [:li "foo"]
