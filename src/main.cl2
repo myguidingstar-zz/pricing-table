@@ -31,7 +31,6 @@
       :choices ["One" "Two" "Three"]}])
   (def$ myStyle
     {:width "25%"}))
-;; example of specifying app name
 
 (deffilter autoWidth []
   [choices]
