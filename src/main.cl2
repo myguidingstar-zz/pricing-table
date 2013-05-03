@@ -39,6 +39,15 @@
      {:name "Feature Bazz" :image "/img/feature.jpg"
       :choices [10 20 30 40]}]))
 
+(defcontroller priceRowCtrl
+  [$scope]
+  (def$ currentValue)
+  (def$ hoverValue)
+  (defn$ setCurrentValue [val]
+    (def$ currentValue val))
+  (defn$ setHoverValue [val]
+    (def$ hoverValue val)))
+
 (deffilter autoWidth []
   [choices]
   {:width (+* "" (/ 75 (count choices)) "%")})

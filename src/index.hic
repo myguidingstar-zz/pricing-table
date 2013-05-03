@@ -32,7 +32,7 @@
    [:div.span12 {:ng-controller "pricingCtrl"}
     [:table.table.table-condensed       ;.table-bordered
      {:ng-repeat "feature in features"}
-     [:tr
+     [:tr {:ng-controller "priceRowCtrl"}
       [:td {:style "width: 25%"}
        [:h2 {:tooltip-html-unsafe
              "{{'<img src=\"'+feature.image+'\">'}}"
@@ -42,11 +42,16 @@
          {:mouseover-remove-class "icon-muted"}]]
        [:ul ;; features from pricing choice
         [:li "Show features provided with moused-over price choice"]
-        [:li "If no price is moused-over, show current price's features "]]]
+        [:li "If no price is moused-over, show current price's features "]
+        [:li "{{hoverValue||currentValue}}"]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        [:h3.text-center
         [:i.icon-ok.text-success.icon-muted
          {:mouseover-remove-class "icon-muted text-success"
-          :mouseover-add-class    "icon-hand-right"}
+          :mouseover-add-class    "icon-hand-right"
+          :ng-click "setCurrentValue(choice)"
+          :ng-mouseenter "setHoverValue(choice)"
+          :ng-mouseleave "setHoverValue()"
+          :style "cursor:pointer"}
          "  {{choice}}"]]]]]]]]]
