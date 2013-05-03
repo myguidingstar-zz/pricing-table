@@ -28,7 +28,7 @@
      [:a.brand {:href "../"} "Bluestrap"]
      [:div#main-menu.nav-collapse.collapse]]]]
   [:div.container
-   [:h1 "Hello world"]
+   [:h1 "Feature group"]
    [:div.span12 {:ng-controller "pricingCtrl"}
     [:table.table.table-condensed       ;.table-bordered
      {:ng-repeat "feature in features"}
@@ -41,11 +41,8 @@
         [:i.icon-question-sign.pull-right.hidden-phone.icon-muted
          {:mouseover-remove-class "icon-muted"}]]
        [:ul ;; features from pricing choice
-        [:li "foo"]
-        [:li "foo"]
-        [:li "foo"]
-        [:li "foo"]
-        [:li "foo"]]]
+        [:li "Show features provided with moused-over price choice"]
+        [:li "If no price is moused-over, show current price's features "]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        [:h3.text-center
