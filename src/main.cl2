@@ -20,7 +20,7 @@
   [$scope]
   (def$ features
     [{:name "Feature Foo"  :image "/img/feature.jpg"
-      :choices [0 10 20 30]}
+      :choices [10 20 30]}
      {:name "Feature Bar"  :image "/img/feature.jpg"
       :choices [10 20 30]}
      {:name "Feature Bazz" :image "/img/feature.jpg"
@@ -34,14 +34,17 @@
     (repeat (count $scope.feature.choices) 0))
 
   (defn$ clearChoices []
+    (def$ currentValue)
     (def$ currentChoices (blank)))
 
   ($scope.clearChoices)
 
   (defn$ setChoice [position choice]
+    (def chosen? (. $scope (isChosen position)))
     (. $scope clearChoices)
-    (def$ currentValue choice)
-    (assoc! $scope.currentChoices position choice))
+    (when-not chosen?
+      (def$ currentValue choice)
+      (assoc! $scope.currentChoices position choice)))
 
   (defn$ isChosen [position]
     (!== 0 (get $scope.currentChoices position)))
