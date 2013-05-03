@@ -43,15 +43,16 @@
        [:ul ;; features from pricing choice
         [:li "Show features provided with moused-over price choice"]
         [:li "If no price is moused-over, show current price's features "]
-        [:li "{{hoverValue||currentValue}}"]]]
+        [:li "{{hoverValue||currentValue}}"]
+        [:li "{{currentChoices}}"]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        [:h3.text-center
         [:i.icon-ok.text-success.icon-muted
          {:mouseover-remove-class "icon-muted text-success"
           :mouseover-add-class    "icon-hand-right"
-          :ng-click "setCurrentValue(choice)"
+          :ng-click "setChoice($index,choice)"
           :ng-mouseenter "setHoverValue(choice)"
           :ng-mouseleave "setHoverValue()"
           :style "cursor:pointer"}
-         "  {{choice}}"]]]]]]]]]
+         "  {{choice}}, {{isActive($index)}}"]]]]]]]]]

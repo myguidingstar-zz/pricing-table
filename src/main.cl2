@@ -43,10 +43,17 @@
   [$scope]
   (def$ currentValue)
   (def$ hoverValue)
-  (defn$ setCurrentValue [val]
-    (def$ currentValue val))
   (defn$ setHoverValue [val]
-    (def$ hoverValue val)))
+    (def$ hoverValue val))
+  (defn$ clearChoices []
+    (def$ currentChoices (repeat (count $scope.feature.choices) 0)))
+  ($scope.clearChoices)
+  (defn$ setChoice [position choice]
+    (. $scope clearChoices)
+    (def$ currentValue choice)
+    (assoc! $scope.currentChoices position choice))
+  (defn$ isActive [position]
+    (!== 0 (get $scope.currentChoices position))))
 
 (deffilter autoWidth []
   [choices]
