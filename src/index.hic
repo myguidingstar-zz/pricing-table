@@ -48,7 +48,8 @@
         [:li "foo"]]]
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
-       [:h3.text-center.muted
+       [:h3.text-center
         [:i.icon-ok.text-success.icon-muted
-         {:mouseover-remove-class "icon-muted"}
+         {:mouseover-remove-class "icon-muted text-success"
+          :mouseover-add-class    "icon-hand-right"}
          "  {{choice}}"]]]]]]]]]

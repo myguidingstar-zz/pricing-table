@@ -4,6 +4,18 @@
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 
+(defdirective mouseoverAddClass
+  []
+  (fn [scope elm attrs]
+    (..
+     elm
+     (bind
+      "mouseenter"
+      (fn [] (. elm (addClass attrs.mouseoverAddClass))))
+     (bind
+      "mouseleave"
+      (fn [] (. elm (removeClass attrs.mouseoverAddClass)))))))
+
 (defdirective mouseoverRemoveClass
   []
   ;; can be a directive-definition object or a link function
