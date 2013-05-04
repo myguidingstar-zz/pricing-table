@@ -19,11 +19,11 @@
 (defcontroller pricingCtrl
   [$scope]
   (def$ features
-    [{:name "Feature Foo"  :image "/img/feature.jpg"
+    [{:name "Feature Foo"  :image "img/feature.jpg"
       :choices [10 20 30]}
-     {:name "Feature Bar"  :image "/img/feature.jpg"
+     {:name "Feature Bar"  :image "img/feature.jpg"
       :choices [10 20 30]}
-     {:name "Feature Bazz" :image "/img/feature.jpg"
+     {:name "Feature Bazz" :image "img/feature.jpg"
       :choices [10 20 30 40]}])
   (defn blank []
     (repeat (count $scope.features) 0))

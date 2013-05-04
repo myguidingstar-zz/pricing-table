@@ -13,9 +13,6 @@
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=vietnamese,latin"
     :rel "stylesheet"}]
-  [:link
-   {:href "more.css",
-    :rel "stylesheet"}]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
   [:script {:src "components/angular/angular.min.js"}]
