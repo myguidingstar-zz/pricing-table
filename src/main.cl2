@@ -24,7 +24,11 @@
      {:name "Feature Bar"  :image "/img/feature.jpg"
       :choices [10 20 30]}
      {:name "Feature Bazz" :image "/img/feature.jpg"
-      :choices [10 20 30 40]}]))
+      :choices [10 20 30 40]}])
+  (defn blank []
+    (repeat (count $scope.features) 0))
+  (def$ total (blank))
+  (defn$ sum [] (apply + $scope.total)))
 
 (defcontroller priceRowCtrl
   [$scope]
@@ -61,7 +65,16 @@
   (defn$ setHover [position choice]
     (. $scope clearHovers)
     (def$ hoverValue choice)
-    (assoc! $scope.currentHovers position choice)))
+    (assoc! $scope.currentHovers position choice))
+
+  (. $scope ;; TODO: macro for this watch (Functional Reactive style)
+     ($watch "hoverValue+currentValue"
+             (fn []
+               (def$ preview
+                 (or $scope.hoverValue $scope.currentValue 0))
+               (assoc! (.. $scope -$parent -total)
+                       $scope.$index
+                       $scope.preview)))))
 
 (deffilter autoWidth []
   [choices]
