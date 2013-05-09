@@ -17,14 +17,15 @@
       (fn [] (. elm (addClass attrs.mouseoverRemoveClass)))))))
 
 (defcontroller sessionCtrl
-  [$scope session]
+  [$scope session users]
   ;; "links" some scope vars to services' so we don't have to
   ;; watch for changes in those services.
   (def$ id       session.id)
   (def$ group    session.group)
   (def$ username session.username)
   ;; (def$ picture  session.picture)
-  (def$ name     session.name))
+  (def$ name     session.name)
+  (def$ users    users.users))
 
 (defservice session
   "Stores current logged-in user's information."
