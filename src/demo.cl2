@@ -20,19 +20,23 @@
   [$scope session users]
   ;; "links" some scope vars to services' so we don't have to
   ;; watch for changes in those services.
-  (def$ id       session.id)
-  (def$ group    session.group)
-  (def$ username session.username)
+  (def$ session       session)
   ;; (def$ picture  session.picture)
-  (def$ name     session.name)
   (def$ users    users.users)
+
+  (def$ show_login_box false)
 
   (defn$ close []
     (def$ show_login_box false))
 
-  (def$ show_login_box false)
   (defn$ login_box []
-    (def$ show_login_box true)))
+    (def$ show_login_box true))
+
+  (defn$ login_as
+    "Updates current session to passed user."
+    [user]
+    (merge! session (select-keys user [:id :group :username :name]))
+    (def$ show_login_box false)))
 
 (defservice session
   "Stores current logged-in user's information."

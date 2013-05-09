@@ -25,7 +25,7 @@
      [:a.brand {:href "../"} "Children Palace"]
      [:div#main-menu.nav-collapse.collapse
       [:ul.nav.pull-right
-       [:li [:a "You're {{name}}"]]
+       [:li [:a "You're {{session.name}}"]]
        [:li [:a {:ng-click "login_box()"} "Log in as..."]]]
       [:div {:modal "show_login_box"
              :close "close()"}
@@ -33,7 +33,7 @@
         "Please choose an user to login as"]
        [:div.modal-body
         [:ul {:ng-repeat "user in users"}
-         [:li "{{user.name}}"]]]
+         [:li [:a {:ng-click "login_as(user)"} "{{user.name}}"]]]]
        [:div.modal-footer
         [:button.btn.btn-warning.cancel
          {:ng-click "close()"}
