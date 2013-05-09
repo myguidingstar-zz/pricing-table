@@ -16,78 +16,21 @@
       "mouseleave"
       (fn [] (. elm (addClass attrs.mouseoverRemoveClass)))))))
 
-(defcontroller pricingCtrl
-  [$scope]
-  (def$ features
-    [{:name "Feature Foo"  :image "img/feature.jpg"
-      :choices [10 20 30]}
-     {:name "Feature Bar"  :image "img/feature.jpg"
-      :choices [10 20 30]}
-     {:name "Feature Bazz" :image "img/feature.jpg"
-      :choices [10 20 30 40]}])
-  (defn blank []
-    (repeat (count $scope.features) 0))
-  (def$ total (blank))
-  (defn$ sum [] (apply + $scope.total)))
+(defcontroller sessionCtrl
+  [$scope session]
+  ;; "links" some scope vars to services' so we don't have to
+  ;; watch for changes in those services.
+  (def$ id       session.id)
+  (def$ group    session.group)
+  (def$ username session.username)
+  ;; (def$ picture  session.picture)
+  (def$ name     session.name))
 
-(defcontroller priceRowCtrl
-  [$scope]
-  (def$ currentValue)
-  (def$ hoverValue)
-  (defn blank []
-    (repeat (count $scope.feature.choices) 0))
-
-  (defn$ clearChoices []
-    (def$ currentValue)
-    (def$ currentChoices (blank)))
-
-  ($scope.clearChoices)
-
-  (defn$ setChoice [position choice]
-    (def chosen? (. $scope (isChosen position)))
-    (. $scope clearChoices)
-    (when-not chosen?
-      (def$ currentValue choice)
-      (assoc! $scope.currentChoices position choice)))
-
-  (defn$ isChosen [position]
-    (!== 0 (get $scope.currentChoices position)))
-
-  (defn$ clearHovers []
-    (def$ hoverValue)
-    (def$ currentHovers (blank)))
-
-  ($scope.clearHovers)
-
-  (defn$ isHovered [position]
-    (!== 0 (get $scope.currentHovers position)))
-
-  (defn$ setHover [position choice]
-    (. $scope clearHovers)
-    (def$ hoverValue choice)
-    (assoc! $scope.currentHovers position choice))
-
-  (. $scope ;; TODO: macro for this watch (Functional Reactive style)
-     ($watch "hoverValue+currentValue"
-             (fn []
-               (def$ preview
-                 (or $scope.hoverValue $scope.currentValue 0))
-               (assoc! (.. $scope -$parent -total)
-                       $scope.$index
-                       $scope.preview)))))
-
-(deffilter autoWidth []
-  [choices]
-  {:width (+* "" (/ 75 (count choices)) "%")})
-
-(deffilter currentClass []
-  [chosen? hovered?]
-  (+* (if chosen?
-         "icon-success text-success"
-         "")
-       (if hovered?
-         " icon-hand-right"
-         "")
-       (if (not (or chosen? hovered?))
-         " icon-muted"
-         "")))
+(defservice session
+  "Stores current logged-in user's information."
+  []
+  (def! id       0)
+  (def! group    "hell")
+  (def! username "satan")
+  ;(def! picture )
+  (def! name     "Mr Satan"))
