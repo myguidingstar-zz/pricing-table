@@ -91,3 +91,9 @@
        (if (not (or chosen? hovered?))
          " icon-muted"
          "")))
+
+(deffilter currentTooltip []
+  [chosen?]
+  (if chosen?
+    "Click to uncheck"
+    "Click to check"))

@@ -46,6 +46,8 @@
       [:td {:ng-style "{{feature.choices|autoWidth}}"
             :ng-repeat "choice in feature.choices"}
        [:h3.text-center
+        {:tooltip "{{isChosen($index)|currentTooltip}}"
+         :tooltip-placement "bottom"}
         [:i.icon-ok
          {:ng-class "isChosen($index)|currentClass:isHovered($index)"
           :ng-click "setChoice($index,choice)"
