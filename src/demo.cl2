@@ -93,8 +93,11 @@
   (defn$ login_as
     "Updates current session to passed user."
     [user]
-    (merge! session (select-keys user [:id :group :username :name]))
-    ($location.path (:url (get users.groups (:group user))))
+    (merge! session
+            (select-keys user [:id :group :username :name])
+            {:url (:url (get users.groups (:group user)))
+             :logged_in true})
+    ($location.path (:url session))
     (def$ show_login_box false)))
 
 (defcontroller emptyCtrl [])

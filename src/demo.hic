@@ -29,6 +29,9 @@
     [:div.container
      [:a.brand {:href "../"} "Children Palace"]
      [:div#main-menu.nav-collapse.collapse
+      [:ul.nav
+       [:li [:a {:ng-show "session.logged_in"
+                 :ng-href "#{{session.url}}"} "Courses"]]]
       [:ul.nav.pull-right
        [:li [:a [:span.badge.badge-important "3"]]]
        [:li [:a {:href "#/profile"}
