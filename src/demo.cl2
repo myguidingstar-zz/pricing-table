@@ -25,7 +25,14 @@
   (def$ username session.username)
   ;; (def$ picture  session.picture)
   (def$ name     session.name)
-  (def$ users    users.users))
+  (def$ users    users.users)
+
+  (defn$ close []
+    (def$ show_login_box false))
+
+  (def$ show_login_box false)
+  (defn$ login_box []
+    (def$ show_login_box true)))
 
 (defservice session
   "Stores current logged-in user's information."

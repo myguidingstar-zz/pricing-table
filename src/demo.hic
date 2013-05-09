@@ -19,14 +19,25 @@
   [:script {:src "components/angular-bootstrap/ui-bootstrap-tpls.min.js"}]
   [:script {:src "demo.js"}]]
  [:body
-  [:div.navbar
+  [:div.navbar {:ng-controller "sessionCtrl"}
    [:div.navbar-inner
     [:div.container
      [:a.brand {:href "../"} "Children Palace"]
      [:div#main-menu.nav-collapse.collapse
-      [:ul.nav.pull-right {:ng-controller "sessionCtrl"}
+      [:ul.nav.pull-right
        [:li [:a "You're {{name}}"]]
-       [:li [:a "Log in as..."]]]]]]]
+       [:li [:a {:ng-click "login_box()"} "Log in as..."]]]
+      [:div {:modal "show_login_box"
+             :close "close()"}
+       [:div.modal-header
+        "Please choose an user to login as"]
+       [:div.modal-body
+        [:ul {:ng-repeat "user in users"}
+         [:li "{{user.name}}"]]]
+       [:div.modal-footer
+        [:button.btn.btn-warning.cancel
+         {:ng-click "close()"}
+         "Cancel"]]]]]]]
   [:div.container
    [:h1 "Title"]
    [:div.span12
