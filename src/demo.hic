@@ -30,12 +30,14 @@
      [:a.brand {:href "../"} "Children Palace"]
      [:div#main-menu.nav-collapse.collapse
       [:ul.nav.pull-right
-       [:li [:a "You're {{session.name}}"]]
-       [:li [:a {:ng-click "login_box()"} "Log in as..."]]]
+       [:li [:a [:span.badge.badge-important "3"]]]
+       [:li [:a [:i.icon-user] "You're {{session.name}}"]]
+       [:li [:a {:ng-click "login_box()"}
+             [:i.icon-exchange] "Log in as..."]]]
       [:div {:modal "show_login_box"
              :close "close()"}
        [:div.modal-header
-        "Please choose an user to login as"]
+        [:h3 "Please choose an user to login as"]]
        [:div.modal-body
         [:ul {:ng-repeat "user in users"}
          [:li [:a {:ng-click "login_as(user)"} "{{user.name}}"]]]]
