@@ -53,8 +53,10 @@
                  [:div.controls
                   [:button.btn.btn-success
                    "Save"]]]])}
-  "/faculty" {:controller 'emptyCtrl
-              :template (hiccup [:div "Faculty!"])}
+  "/faculty" {:controller 'facultyCtrl
+              :template
+              (hiccup
+               [:div "Faculty!"])}
   "/student" {:controller 'emptyCtrl
               :template (hiccup [:div "Student!"])}
   "/accountant" {:controller 'emptyCtrl
@@ -104,13 +106,15 @@
 
 (defcontroller profileCtrl [])
 
+(defcontroller facultyCtrl [$scope courses])
+
 (defservice session
   "Stores current logged-in user's information."
   []
   (def! id       -1)
   (def! group    "guest")
   (def! username "guest")
-  ;(def! picture )
+                                        ;(def! picture )
   (def! name     "Guest"))
 
 (defservice users
@@ -130,3 +134,36 @@
     {:faculties   {:id 0 :url "/faculty"}
      :accountants {:id 1 :url "/accountant"}
      :students    {:id 2 :url "/student"}}))
+
+(defservice courses
+  "Stores global courses (including registration and payment status)"
+  []
+  (def! courses
+    [{:id 0 :title "Basic programming" :desc "Learn how to write hello world"
+      :faculty "faculty-a"
+      :registed [{:id 3 :paid true}
+                 {:id 4 :paid false}
+                 {:id 5 :paid true}]}
+     {:id 1 :title "Medium programming" :desc "Learn how to calculate 1+1"
+      :faculty "faculty-a"
+      :registed [{:id 3 :paid false}
+                 {:id 4 :paid false}
+                 {:id 5 :paid true}
+                 {:id 6 :paid true}]}
+     {:id 2 :title "Basic drawing" :desc "Learn how to draw a line"
+      :faculty "faculty-b"
+      :registed [{:id 3 :paid true}
+                 {:id 4 :paid false}
+                 {:id 5 :paid true}
+                 {:id 6 :paid true}
+                 {:id 7 :paid true}]}
+     {:id 3 :title "Medium drawing" :desc "Learn how to draw a worm"
+      :faculty "faculty-b"
+      :registed []}
+     {:id 4 :title "Advanced drawing" :desc "Learn how to draw a chicken"
+      :faculty "faculty-b"
+      :registed [{:id 3 :paid true}
+                 {:id 4 :paid false}
+                 {:id 5 :paid true}
+                 {:id 6 :paid true}
+                 {:id 7 :paid true}]}]))
