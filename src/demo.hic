@@ -33,7 +33,8 @@
        [:li [:a {:ng-show "session.logged_in"
                  :ng-href "#{{session.url}}"} "Courses"]]]
       [:ul.nav.pull-right
-       [:li [:a [:span.badge.badge-important "3"]]]
+       [:li {:ng-show "session.logged_in"}
+        [:a [:span.badge.badge-important "3"]]]
        [:li [:a {:href "#/profile"}
              [:i.icon-user] "You're {{session.name}}"]]
        [:li [:a {:ng-click "login_box()"}
