@@ -56,7 +56,34 @@
   "/faculty" {:controller 'facultyCtrl
               :template
               (hiccup
-               [:div "Faculty!"])}
+               [:h2 "Course list"]
+               [:button.btn.btn-success "Add course"]
+               [:form.well.well-small
+                {:style "margin: 30px 0px"}
+                [:input.search-query
+                 {:ng-model "query" :type "text"
+                  :placeholder "filter list"}]]
+               [:table.table.table-bordered
+                [:thead
+                 [:tr
+                  [:th "Title"]
+                  [:th "Time"]
+                  [:th "Paid/Total registered"]
+                  [:th "Actions"]]]
+                [:tbody
+                 {:ng-repeat "course in courses | filter:query | filter:session.username"}
+                 [:tr
+                  [:td
+                   [:i.icon-info-sign.pull-right.muted
+                    {:tooltip "{{course.desc}}"
+                     :tooltip-placement "right"}]
+                   "{{course.title}}"]
+                  [:td "-"]
+                  [:td "{{course.registered|count_paid_students}} / {{course.registered.length}}"]
+                  [:td
+                   [:i.icon-pencil]
+                   [:i.icon-remove.icon-danger.pull-right
+                    {:style "color: #BD4247"}]]]]])}
   "/student" {:controller 'emptyCtrl
               :template (hiccup [:div "Student!"])}
   "/accountant" {:controller 'emptyCtrl
@@ -106,7 +133,10 @@
 
 (defcontroller profileCtrl [])
 
-(defcontroller facultyCtrl [$scope courses])
+(defcontroller facultyCtrl [$scope session courses]
+  (def$ session session)
+  (def$ courses courses.courses)
+  )
 
 (defservice session
   "Stores current logged-in user's information."
@@ -138,32 +168,48 @@
 (defservice courses
   "Stores global courses (including registration and payment status)"
   []
-  (def! courses
-    [{:id 0 :title "Basic programming" :desc "Learn how to write hello world"
-      :faculty "faculty-a"
-      :registed [{:id 3 :paid true}
+  (def counter 0)
+  (def! courses [])
+  (def that this)
+
+  (defn! add_courses [& courses]
+    (doseq [course courses]
+      (def n (inc! counter))
+      (conj! that.courses (merge course {:id n}))))
+
+  (this.add_courses
+   {:title "Basic programming" :desc "Learn how to write hello world"
+    :faculty "faculty-a"
+    :registered [{:id 3 :paid true}
                  {:id 4 :paid false}
                  {:id 5 :paid true}]}
-     {:id 1 :title "Medium programming" :desc "Learn how to calculate 1+1"
-      :faculty "faculty-a"
-      :registed [{:id 3 :paid false}
+   {:title "Medium programming" :desc "Learn how to calculate 1+1"
+    :faculty "faculty-a"
+    :registered [{:id 3 :paid false}
                  {:id 4 :paid false}
                  {:id 5 :paid true}
                  {:id 6 :paid true}]}
-     {:id 2 :title "Basic drawing" :desc "Learn how to draw a line"
-      :faculty "faculty-b"
-      :registed [{:id 3 :paid true}
+   {:title "Basic drawing" :desc "Learn how to draw a line"
+    :faculty "faculty-b"
+    :registered [{:id 3 :paid true}
                  {:id 4 :paid false}
                  {:id 5 :paid true}
                  {:id 6 :paid true}
                  {:id 7 :paid true}]}
-     {:id 3 :title "Medium drawing" :desc "Learn how to draw a worm"
-      :faculty "faculty-b"
-      :registed []}
-     {:id 4 :title "Advanced drawing" :desc "Learn how to draw a chicken"
-      :faculty "faculty-b"
-      :registed [{:id 3 :paid true}
+   {:title "Medium drawing" :desc "Learn how to draw a worm"
+    :faculty "faculty-b"
+    :registered []}
+   {:title "Advanced drawing" :desc "Learn how to draw a chicken"
+    :faculty "faculty-b"
+    :registered [{:id 3 :paid true}
                  {:id 4 :paid false}
                  {:id 5 :paid true}
                  {:id 6 :paid true}
-                 {:id 7 :paid true}]}]))
+                 {:id 7 :paid true}]}))
+
+(deffilter count_paid_students
+  []
+  [coll]
+  (count (filter
+          #(true? (:paid %))
+          coll)))
