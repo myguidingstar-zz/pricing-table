@@ -63,10 +63,10 @@
   "Stores current logged-in user's information."
   []
   (def! id       -1)
-  (def! group    "hell")
-  (def! username "satan")
+  (def! group    "guest")
+  (def! username "guest")
   ;(def! picture )
-  (def! name     "Mr Satan"))
+  (def! name     "Guest"))
 
 (defservice users
   "Stores system users."
