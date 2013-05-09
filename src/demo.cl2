@@ -4,6 +4,18 @@
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 
+(defroute
+  "/default" {:controller 'emptyCtrl
+              :template (hiccup [:div "Default..."])}
+  "/faculty" {:controller 'emptyCtrl
+              :template (hiccup [:div "Faculty!"])}
+  "/student" {:controller 'emptyCtrl
+              :template (hiccup [:div "Student!"])}
+  "/accountant" {:controller 'emptyCtrl
+                 :template (hiccup [:foo "Accountant, really?"])}
+  "/alias" "/default"
+  :default "/default")
+
 (defdirective mouseoverRemoveClass
   []
   (fn [scope elm attrs]
@@ -17,7 +29,7 @@
       (fn [] (. elm (addClass attrs.mouseoverRemoveClass)))))))
 
 (defcontroller sessionCtrl
-  [$scope session users]
+  [$scope session users $location]
   ;; "links" some scope vars to services' so we don't have to
   ;; watch for changes in those services.
   (def$ session       session)
@@ -36,7 +48,10 @@
     "Updates current session to passed user."
     [user]
     (merge! session (select-keys user [:id :group :username :name]))
+    ($location.path (:url (get users.groups (:group user))))
     (def$ show_login_box false)))
+
+(defcontroller emptyCtrl [])
 
 (defservice session
   "Stores current logged-in user's information."
@@ -59,4 +74,8 @@
      {:id 5 :username "student-h" :group "students" :name "Student H" :picture ""}
      {:id 6 :username "student-k" :group "students" :name "Student K" :picture ""}
      {:id 7 :username "student-l" :group "students" :name "Student L" :picture ""}
-     ]))
+     ])
+  (def! groups
+    {:faculties   {:id 0 :url "/faculty"}
+     :accountants {:id 1 :url "/accountant"}
+     :students    {:id 2 :url "/student"}}))

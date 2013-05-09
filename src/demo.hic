@@ -39,6 +39,12 @@
          {:ng-click "close()"}
          "Cancel"]]]]]]]
   [:div.container
-   [:h1 "Title"]
    [:div.span12
-    ]]]]
+    [:div.span4 {:style "padding: 8px 0;"}
+     [:ul.nav.nav-list
+      [:li.nav-header "List header"]
+      [:li.active [:a {:href "#/foo"} "yeah"]]
+      [:li.divider]
+      [:li [:a {:href "#/bar"} "yeah"]]]]
+    [:div.span6
+     [:ng-view]]]]]]
