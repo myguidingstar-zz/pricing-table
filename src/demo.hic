@@ -10,13 +10,18 @@
    {:href "css/responsive.min.css",
     :rel "stylesheet"}]
   [:link
+   {:href "components/angular-strap/vendor/bootstrap-datepicker.css"}]
+  [:link
    {:href
     "http://fonts.googleapis.com/css?family=Arimo|Open+Sans+Condensed:300|Noto+Serif:700italic&subset=vietnamese,latin"
     :rel "stylesheet"}]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
+  [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"}]
   [:script {:src "components/angular/angular.min.js"}]
   [:script {:src "components/angular-bootstrap/ui-bootstrap-tpls.min.js"}]
+  [:script {:src "components/angular-strap/dist/angular-strap.min.js"}]
+  [:script {:src "components/angular-strap/vendor/bootstrap-datepicker.js"}]
   [:script {:src "demo.js"}]]
  [:body
   [:div.navbar {:ng-controller "sessionCtrl"}

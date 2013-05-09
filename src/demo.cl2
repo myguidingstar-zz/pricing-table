@@ -1,12 +1,18 @@
 (include! "../lib/angular.cl2")
 
-(defapp myApp [ui.bootstrap])
+(defapp myApp [ui.bootstrap $strap.directives])
 ;; don't have to specify app name as compiler remember the last app name
 ;; defined in `defapp`
 
 (defroute
   "/default" {:controller 'emptyCtrl
-              :template (hiccup [:div "Default..."])}
+              :template
+              (hiccup
+               [:div.input-append
+                [:input.input-small {:type "text" :data-date-format "dd/mm/yyyy"
+                                     :bs-datepicker ""}]
+                [:button.btn {:data-toggle "datepicker"}
+                 [:i.icon-calendar]]])}
   "/faculty" {:controller 'emptyCtrl
               :template (hiccup [:div "Faculty!"])}
   "/student" {:controller 'emptyCtrl
