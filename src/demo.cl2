@@ -13,6 +13,46 @@
                                      :bs-datepicker ""}]
                 [:button.btn {:data-toggle "datepicker"}
                  [:i.icon-calendar]]])}
+  "/profile" {:controller 'profileCtrl
+              :template
+              (hiccup
+               [:h2 "Please fill your information"]
+               [:form.form-horizontal.well
+                {:name "profileForm"}
+                [:div.control-group
+                 [:label.control-label "Name"]
+                 [:div.controls
+                  [:input.span5
+                   {:ng-model "name" :type "text" :required "" :name "name"}]]]
+                [:div.control-group
+                 [:label.control-label "Email"]
+                 [:div.controls
+                  [:input.span4
+                   {:ng-model "email" :type "email" :required ""}]]]
+                [:div.control-group
+                 [:label.control-label "Phone"]
+                 [:div.controls
+                  [:input.span4
+                   {:ng-model "email" :type "text" :required ""}]]]
+                [:div.control-group
+                 [:label.control-label "Password"]
+                 [:div.controls
+                  [:input.span4
+                   {:ng-model "password" :type "password" :required ""}]]]
+                [:div.control-group
+                 [:label.control-label "DOB"]
+                 [:div.controls
+                  [:div.input-append
+                   [:input.span2
+                    {:type "text" :data-date-format "dd/mm/yyyy"
+                     :ng-model "dob"
+                     :bs-datepicker "" :required ""}]
+                   [:button.btn {:data-toggle "datepicker"}
+                    [:i.icon-calendar]]]]]
+                [:div.control-group
+                 [:div.controls
+                  [:button.btn.btn-success
+                   "Save"]]]])}
   "/faculty" {:controller 'emptyCtrl
               :template (hiccup [:div "Faculty!"])}
   "/student" {:controller 'emptyCtrl
@@ -58,6 +98,8 @@
     (def$ show_login_box false)))
 
 (defcontroller emptyCtrl [])
+
+(defcontroller profileCtrl [])
 
 (defservice session
   "Stores current logged-in user's information."

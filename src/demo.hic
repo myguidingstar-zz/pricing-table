@@ -31,7 +31,8 @@
      [:div#main-menu.nav-collapse.collapse
       [:ul.nav.pull-right
        [:li [:a [:span.badge.badge-important "3"]]]
-       [:li [:a [:i.icon-user] "You're {{session.name}}"]]
+       [:li [:a {:href "#/profile"}
+             [:i.icon-user] "You're {{session.name}}"]]
        [:li [:a {:ng-click "login_box()"}
              [:i.icon-exchange] "Log in as..."]]]
       [:div {:modal "show_login_box"
@@ -45,6 +46,6 @@
         [:button.btn.btn-warning.cancel
          {:ng-click "close()"}
          "Cancel"]]]]]]]
-  [:div.container
-   [:div.span12
+  [:div.container.row.span12
+   [:div.span8.offset2
     [:ng-view]]]]]
