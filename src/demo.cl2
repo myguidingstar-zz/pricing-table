@@ -56,8 +56,42 @@
   "/faculty" {:controller 'facultyCtrl
               :template
               (hiccup
+               [:div {:modal "show_edit_box"
+                      :close "close()"}
+                [:div.modal-header
+                 [:h3 "Please fill course information"]]
+                [:div.modal-body
+                 [:form.form-horizontal.well
+                  {:name "profileForm"}
+                  [:div.control-group
+                   [:label.control-label "Title"]
+                   [:div.controls
+                    [:input.span3
+                     {:ng-model "buffer.title" :type "text" :required "" :name "title"}]]]
+                  [:div.control-group
+                   [:label.control-label "Description"]
+                   [:div.controls
+                    [:textarea.span3
+                     {:ng-model "buffer.desc"
+                      :row 3
+                      :name "desc"}]]]
+                  [:div.control-group
+                   [:div.controls
+                    [:button.btn.btn-success
+                     {:ng-click "save_course()"}
+                     "Save"]]]]]
+                [:div.modal-footer
+                 [:button.btn.btn-warning.cancel
+                  {:ng-click "close()"}
+                  "Cancel"]]]
+
                [:h2 "Course list"]
-               [:button.btn.btn-success "Add course"]
+
+               [:button.btn.btn-success
+                {:ng-click "add_course_box()"}
+                [:i.icon-plus " "]
+                "Add course"]
+
                [:form.well.well-small
                 {:style "margin: 30px 0px"}
                 [:input.search-query
@@ -81,11 +115,15 @@
                   [:td "-"]
                   [:td "{{course.registered|count_paid_students}} / {{course.registered.length}}"]
                   [:td
-                   [:i.icon-pencil]
+                   [:i.icon-pencil
+                    {:ng-click "edit_course_box(course.id)"}]
                    [:i.icon-remove.icon-danger.pull-right
-                    {:style "color: #BD4247"}]]]]])}
+                    {:style "color: #BD4247"
+                     :ng-click "remove_course(course.id)"}]]]]])}
   "/student" {:controller 'emptyCtrl
-              :template (hiccup [:div "Student!"])}
+              :template
+              (hiccup
+               [:div "Student!"])}
   "/accountant" {:controller 'emptyCtrl
                  :template (hiccup [:foo "Accountant, really?"])}
   "/alias" "/default"
@@ -136,6 +174,43 @@
 (defcontroller facultyCtrl [$scope session courses]
   (def$ session session)
   (def$ courses courses.courses)
+  (def$ show_edit_box)
+  (def$ buffer {})
+
+  ;; true if is adding course, false means editing old course
+  (def$ add_mode true)
+
+  (defn$ close []
+    (def$ show_edit_box false))
+
+  (defn$ add_course_box []
+    (def$ add_mode true)
+    (def$ show_edit_box true))
+
+  (defn$ edit_course_box [id]
+    (def$ add_mode false)
+
+    (def$ buffer (select-keys
+                  (first (filter
+                          #(= id (:id %))
+                          courses.courses))
+                  [:id :title :desc :registered]))
+    (def$ show_edit_box true))
+
+  (defn$ remove_course [id]
+    (courses.remove_course id))
+
+  (defn$ save_course []
+    (if $scope.add_mode
+      (courses.add_courses
+       (merge $scope.buffer
+              {:faculty session.username
+               :registered []}))
+      (courses.update_course $scope.buffer))
+
+    (def$ buffer {})
+    (def$ show_edit_box false))
+
   )
 
 (defservice session
@@ -176,6 +251,16 @@
     (doseq [course courses]
       (def n (inc! counter))
       (conj! that.courses (merge course {:id n}))))
+
+  (defn! update_course [new-course]
+    (doseq [course that.courses]
+      (when (= (:id course) (:id new-course))
+        (merge! course new-course))))
+
+  (defn! remove_course [id]
+    (doseq [[n course] that.courses]
+      (when (= (:id course) id)
+        (dissoc! that.courses n))))
 
   (this.add_courses
    {:title "Basic programming" :desc "Learn how to write hello world"
