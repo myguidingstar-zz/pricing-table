@@ -17,7 +17,7 @@
     :rel "stylesheet"}]
   [:script
    "document.write('<base href=\"' + document.location + '\" />')"]
-  [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"}]
+  [:script {:src "components/jquery/jquery.min.js"}]
   [:script {:src "components/angular/angular.min.js"}]
   [:script {:src "components/angular-bootstrap/ui-bootstrap-tpls.min.js"}]
   [:script {:src "components/angular-strap/dist/angular-strap.min.js"}]
