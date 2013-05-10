@@ -260,7 +260,6 @@
   (def$ session session)
   (def$ courses courses.courses)
   (def$ show_edit_box)
-  (def$ buffer {})
 
   ;; true if is adding course, false means editing old course
   (def$ add_mode true)
@@ -269,6 +268,7 @@
     (def$ show_edit_box false))
 
   (defn$ add_course_box []
+    (def$ buffer {})
     (def$ add_mode true)
     (def$ show_edit_box true))
 
@@ -292,8 +292,6 @@
               {:faculty session.username
                :registered []}))
       (courses.update_course $scope.buffer))
-
-    (def$ buffer {})
     (def$ show_edit_box false)))
 
 (defcontroller studentCtrl [$scope session courses]
