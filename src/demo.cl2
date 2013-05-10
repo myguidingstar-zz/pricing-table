@@ -190,13 +190,13 @@
                         :tooltip-placement "right"
                         :ng-hide "record.paid"
                         :style "color: #369629"
-                        :ng-click "confirm_payment($index, record.id, record.course_id)"}]
+                        :ng-click "confirm_payment(record.id, record.course_id)"}]
                       [:i.icon-remove
                        {:tooltip "Unconfirm payment"
                         :tooltip-placement "right"
                         :ng-show "record.paid"
                         :style "color: #BD4247"
-                        :ng-click "unconfirm_payment($index, record.id, record.course_id)"}]]]]])}
+                        :ng-click "unconfirm_payment(record.id, record.course_id)"}]]]]])}
   "/alias" "/default"
   :default "/default")
 
@@ -325,23 +325,27 @@
               (first (filter #(== (:id student) (:id %)) users.users))
               [:id :name :username :dob :email]))))
 
-  (defn$ confirm_payment [index student-id course-id]
+  (defn$ confirm_payment [student-id course-id]
     (doseq [course courses.courses
             :when (= course-id (:id course))
             student course.registered
             :when (= student-id (:id student))]
       (assoc! student :paid true))
-    (assoc! (get $scope.registrations index)
-            :paid true))
+    (doseq [registration $scope.registrations
+            :when (= student-id (:id registration))
+            :when (= course-id (:course_id registration))]
+      (assoc! registration :paid true)))
 
-  (defn$ unconfirm_payment [index student-id course-id]
+  (defn$ unconfirm_payment [student-id course-id]
     (doseq [course courses.courses
             :when (= course-id (:id course))
             student course.registered
             :when (= student-id (:id student))]
       (assoc! student :paid false))
-    (assoc! (get $scope.registrations index)
-            :paid false)))
+    (doseq [registration $scope.registrations
+            :when (= student-id (:id registration))
+            :when (= course-id (:course_id registration))]
+      (assoc! registration :paid false))))
 
 (defservice session
   "Stores current logged-in user's information."
