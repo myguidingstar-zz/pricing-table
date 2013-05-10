@@ -120,10 +120,39 @@
                    [:i.icon-remove.icon-danger.pull-right
                     {:style "color: #BD4247"
                      :ng-click "remove_course(course.id)"}]]]]])}
-  "/student" {:controller 'emptyCtrl
+
+  "/student" {:controller 'studentCtrl
               :template
               (hiccup
-               [:div "Student!"])}
+               [:h2 "Current courses"]
+               [:h3 "Your payment status"]
+               [:div.progress.progress-info.progress-striped.active
+                [:div.bar {:style "width: 50%"}]]
+               [:form.well.well-small
+                {:style "margin: 30px 0px"}
+                [:input.search-query
+                 {:ng-model "query" :type "text"
+                  :placeholder "filter list"}]]
+               [:table.table.table-bordered
+                [:thead
+                 [:tr
+                  [:th "Title"]
+                  [:th "Time"]
+                  [:th "Actions"]]]
+                [:tbody
+                 {:ng-repeat "course in courses | filter:query"}
+                 [:tr
+                  [:td
+                   [:i.icon-info-sign.pull-right.muted
+                    {:tooltip "{{course.desc}}"
+                     :tooltip-placement "right"}]
+                   "{{course.title}}"]
+                  [:td "-"]
+                  [:td
+                   [:i.icon-remove
+                    {:style "color: #BD4247"
+                     :ng-click "remove_course(course.id)"}]]]]])}
+
   "/accountant" {:controller 'emptyCtrl
                  :template (hiccup [:foo "Accountant, really?"])}
   "/alias" "/default"
@@ -209,8 +238,11 @@
       (courses.update_course $scope.buffer))
 
     (def$ buffer {})
-    (def$ show_edit_box false))
+    (def$ show_edit_box false)))
 
+(defcontroller studentCtrl [$scope session courses]
+  (def$ session session)
+  (def$ courses courses.courses)
   )
 
 (defservice session
