@@ -141,7 +141,7 @@
                   [:th "Actions"]]]
                 [:tbody
                  {:ng-repeat "course in courses | filter:query"}
-                 [:tr
+                 [:tr {:ng-class "course|registration_to_row_class:session.id"}
                   [:td
                    [:i.icon-info-sign.pull-right.muted
                     {:tooltip "{{course.desc}}"
@@ -149,8 +149,13 @@
                    "{{course.title}}"]
                   [:td "-"]
                   [:td
+                   [:i.icon-ok
+                    {:ng-show "course|can_register:session.id"
+                     :style "color: #369629"
+                     :ng-click "remove_course(course.id)"}]
                    [:i.icon-remove
-                    {:style "color: #BD4247"
+                    {:ng-show "course|can_remove:session.id"
+                     :style "color: #BD4247"
                      :ng-click "remove_course(course.id)"}]]]]])}
 
   "/accountant" {:controller 'emptyCtrl
@@ -330,3 +335,37 @@
   (count (filter
           #(true? (:paid %))
           coll)))
+
+(defn registered?
+  "Helper function.
+  Checks if a course was registered by an user."
+  [course user-id]
+  (= 1 (count (filter
+               #(= user-id (:id %))
+               (:registered course)))))
+
+(defn paid?
+  "Helper function.
+  Checks if a course is paid by current user."
+  [course user-id]
+  (= 1 (count (filter
+               #(and (= user-id (:id %))
+                     (true?     (:paid %)))
+               (:registered course)))))
+
+(deffilter can_register []
+  [course user-id]
+  (not (registered? course user-id)))
+
+(deffilter can_remove []
+  [course user-id]
+  (and (registered? course user-id)
+       (not (paid? course user-id))))
+
+(deffilter registration_to_row_class []
+  [course user-id]
+  (if (paid? course user-id)
+    "success"
+    (if (registered? course user-id)
+      "warning"
+      "")))
