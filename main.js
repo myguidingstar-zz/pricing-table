@@ -1,0 +1,130 @@
+ function not (x) { return !x; }; var contains$QUEST$ = function (m, k) { return (k in m); }; var boolean$STAR$ = function (x) { return ((null != x) && (false !== x)); }; var get$QUOT$ = function (m, k, not_found) { return ((((("string" === typeof(m)) || (m instanceof String)) && m[k]) || not_found) || (((k in m) && m[k]) || not_found)); }; var get = get$QUOT$; var true$QUEST$ = function (expr) { return (true === expr); }; var false$QUEST$ = function (expr) { return (false === expr); }; var nil$QUEST$ = function (expr) { return (void(0) === expr); }; var first = function (x) { if ((void(0) === x)) { return void(0); } else { return x[0]; }; }; var second = function (x) { if ((void(0) === x)) { return void(0); } else { return x[1]; }; }; var last = function (x) { if ((void(0) === x)) { return void(0); } else { return x[(count(x) - 1)]; }; }; var next = function (x) { if (empty$QUEST$(x)) { return void(0); } else { if ((1 < count(x))) { return x.slice(1); }; }; }; var rest = function (x) { if ((void(0) === x)) { return []; } else { return x.slice(1); }; }; var nnext = function (x) { if ((1 < count(((1 < count(x)) ? x.slice(1) : void(0))))) { return ((1 < count(x)) ? x.slice(1) : void(0)).slice(1); }; }; var vector$QUEST$ = function (x) { return (x instanceof Array); }; var string$QUEST$ = function (x) { return (("string" === typeof(x)) || (x instanceof String)); }; var number$QUEST$ = function (n) { return ("number" === typeof(n)); }; var zero$QUEST$ = function (x) { return (0 === x); }; var fn$QUEST$ = function (f) { return ("function" === typeof(f)); }; var inc = function (arg) { return (1 + arg); }; var dec = function (arg) { return (arg - 1); }; var count = function (x) { if (((x instanceof Array) || (("string" === typeof(x)) || (x instanceof String)))) { return x.length; } else { return keys(x).length; }; }; var empty$QUEST$ = function (coll) { return ((coll === "") || (void(0) === coll) || $EQ$$STAR$({}, coll) || $EQ$$STAR$([], coll)); }; var reduce$STAR$ = function (f, val, coll) { var c = count(coll); return (function () { for (var i = 0, r = val; true;) { if ((i < c)) { var _temp_1000 = [(i + 1),f(r, coll[i])];
+ i = _temp_1000[0]; r = _temp_1000[1]; continue; } else { return r; }; break; } }).call(this); }; var reduce = function () { var args = arguments; switch (count(args)) { case 3: return (function () { var f = function (f, val, coll) { return reduce$STAR$(f, val, coll); }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (f, coll) { return reduce$STAR$(f, coll[0], coll); }; return f.apply(0, args);  })();  }; }; var reductions$STAR$ = function (f, init, coll) { var c = count(coll), ret = []; (function () { for (var i = 0, r = init; true;) { if ((i < c)) { var _temp_1001 = [(i + 1),f((function(){  ret.push(r); return r;})(), coll[i])];
+ i = _temp_1001[0]; r = _temp_1001[1]; continue; } else { return ret.push(r); }; break; } }).call(this); return ret; }; var reductions = function () { var args = arguments; switch (count(args)) { case 3: return (function () { var f = function (f, init, coll) { return reductions$STAR$(f, init, coll); }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (f, coll) { return reductions$STAR$(f, coll[0], coll); }; return f.apply(0, args);  })();  }; }; var $STAR$gensym$STAR$ = 999; var gensym = function (prefix_string) { inc$EXCL$($STAR$gensym$STAR$); return str((prefix_string || "G__"), $STAR$gensym$STAR$); }; var subvec = function (v, start, end) { return v.slice(start, end); }; var map$QUEST$ = function (m) { return (m && !((typeof(m) in {'boolean' : true,'string' : true,'function' : true,'number' : true}) || (m instanceof Array) || (void(0) === m) || (null === m) || ("function" === typeof(m)) || (m instanceof RegExp))); }; var type = function (x) { if ((x instanceof Array)) { return 'vector'; } else { if ((("string" === typeof(x)) || (x instanceof String))) { return 'string'; } else { if (("number" === typeof(x))) { return 'number'; } else { if ((void(0) === x)) { return "nil"; } else { if ((null === x)) { return 'null'; } else { if (("boolean" === typeof(x))) { return 'boolean'; } else { if (("function" === typeof(x))) { return 'function'; } else { if ((x instanceof RegExp)) { return 'regexp'; } else { if ('else') { return 'map'; }; }; }; }; }; }; }; }; }; }; var map$STAR$ = function (f, arr) { var c = count(arr); return (function () { for (var r = [], i = 0; true;) { if ((i < c)) {  r.push(f(arr[i])); var _temp_1002 = [r,(i + 1)];
+ r = _temp_1002[0]; i = _temp_1002[1]; continue; } else { return r; }; break; } }).call(this); }; var map = void(0); if (("function" === typeof(Array.prototype.map))) { map = function (f, coll) { return coll.map(f); }; } else { map = function (f, coll) { return map$STAR$(f, coll); }; }; var remove = function (pred, seq) { var c = count(seq); return (function () { for (var r = [], i = 0; true;) { if ((i < c)) {  if (pred(seq[i])) { void(0); } else {  r.push(seq[i]); }; var _temp_1003 = [r,(1 + i)];
+ r = _temp_1003[0]; i = _temp_1003[1]; continue; } else { return r; }; break; } }).call(this); }; var filter$STAR$ = function (pred, arr) { var c = count(arr); return (function () { for (var r = [], i = 0; true;) { if ((i < c)) {  if (pred(arr[i])) { r.push(arr[i]); }; var _temp_1004 = [r,(i + 1)];
+ r = _temp_1004[0]; i = _temp_1004[1]; continue; } else { return r; }; break; } }).call(this); }; var filter = void(0); if (("function" === typeof(Array.prototype.filter))) { filter = function (pred, coll) { return coll.filter(pred); }; } else { filter = function (pred, coll) { return filter$STAR$(pred, coll); }; }; var merge = function () { var _temp_1005 = Array.prototype.slice.call(arguments), ms = _temp_1005.slice(0); return ((function () { var ret = {}; (function () { var coll482 = ms; for (var k483 in coll482) { var m = coll482[k483]; (function () { var coll484 = m; for (var k in coll484) { var v = coll484[k]; ret[k] = v; }; })(); }; })(); return ret;  })() || {}); }; var select_keys = function (m, ks) { var m1 = {}; (function () { var coll485 = ks; for (var k486 in coll485) { var k = coll485[k486]; if (m.hasOwnProperty(k)) { m1[k] = m[k]; }; }; })(); return m1; }; var keys = function (m) { var ret487 = []; var coll488 = m; for (var k in coll488) { var v = coll488[k]; ret487.push(k); }; return ret487;; }; var vals = function (m) { var ret489 = []; var coll490 = m; for (var k in coll490) { var v = coll490[k]; ret489.push(v); }; return ret489;; }; var v$EQ$$STAR$ = function (x, y) { if ((count(x) === count(y))) { for (var a = x, b = y, c = count(x); true;) { if ((0 === c)) { return true; } else { if ($EQ$$STAR$(a[0], b[0])) { var _temp_1006 = [a.slice(1),b.slice(1),(c - 1)];
+ a = _temp_1006[0]; b = _temp_1006[1]; c = _temp_1006[2]; continue; } else { return false; }; }; break; }; } else { return false; }; }; var m$EQ$$STAR$ = function (x, y) { var xkeys = keys(x).sort(); if ($EQ$$STAR$(xkeys, keys(y).sort())) { return (function () { for (var ks = xkeys, c = count(xkeys); true;) { if ($EQ$$STAR$(x[ks[0]], y[ks[0]])) { if ((0 === c)) { return true; } else { var _temp_1007 = [ks.slice(1),(c - 1)];
+ ks = _temp_1007[0]; c = _temp_1007[1]; continue; }; } else { return false; }; break; } }).call(this); } else { return false; }; }; var $EQ$$STAR$ = function (x, y) { if ((x === y)) { return true; } else { if ((type(x) === type(y))) { if ((x instanceof Array)) { return v$EQ$$STAR$(x, y); } else { if (map$QUEST$(x)) { return m$EQ$$STAR$(x, y); } else { if ('else') { return false; }; }; }; } else { return false; }; }; }; var $EQ$$STAR$$STAR$ = function () { var _temp_1008 = Array.prototype.slice.call(arguments), x = _temp_1008[0], xs = _temp_1008.slice(1); for (var a = x, more = xs; true;) { if ((x === a)) { if (((1 < count(more)) ? more.slice(1) : void(0))) { var _temp_1009 = [more[0],((1 < count(more)) ? more.slice(1) : void(0))];
+ a = _temp_1009[0]; more = _temp_1009[1]; continue; } else { return (x === more[0]); }; } else { return false; }; break; }; }; var $EQ$$QUOT$ = function () { var args = arguments; switch (count(args)) { case 0: return (function () { var f = function () { return true; }; return f.apply(0, args);  })();  case 1: return (function () { var f = function (x) { return true; }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (x, y) { return $EQ$$STAR$(x, y); }; return f.apply(0, args);  })();  default: return (function () { var f = function () { var _temp_1010 = Array.prototype.slice.call(arguments), a = _temp_1010[0], b = _temp_1010[1], c = _temp_1010.slice(2); for (var x = a, y = b, more = c; true;) { if ($EQ$$STAR$(x, y)) { if (((1 < count(more)) ? more.slice(1) : void(0))) { var _temp_1011 = [y,more[0],((1 < count(more)) ? more.slice(1) : void(0))];
+ x = _temp_1011[0]; y = _temp_1011[1]; more = _temp_1011[2]; continue; } else { return $EQ$$STAR$(y, more[0]); }; } else { return false; }; break; }; }; return f.apply(0, args);  })(); }; }; var $EQ$ = $EQ$$QUOT$; var not$EQ$ = function () { var args = arguments; switch (count(args)) { case 1: return (function () { var f = function (x) { return false; }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (x, y) { return !$EQ$$STAR$(x, y); }; return f.apply(0, args);  })();  default: return (function () { var f = function () { var _temp_1012 = Array.prototype.slice.call(arguments), args = _temp_1012.slice(0); return !$EQ$.apply(0, args); }; return f.apply(0, args);  })(); }; }; var $PLUS$ = function () { var _temp_1013 = Array.prototype.slice.call(arguments), args = _temp_1013.slice(0); return reduce$STAR$(function (p1__491$HASH$, p2__492$HASH$) { return (p1__491$HASH$ + p2__492$HASH$); }, 0, args); }; var _ = function () { var _temp_1014 = Array.prototype.slice.call(arguments), args = _temp_1014.slice(0); return reduce$STAR$(function (p1__493$HASH$, p2__494$HASH$) { return (p1__493$HASH$ - p2__494$HASH$); }, 0, args); }; var $STAR$ = function () { var _temp_1015 = Array.prototype.slice.call(arguments), args = _temp_1015.slice(0); return reduce$STAR$(function (p1__495$HASH$, p2__496$HASH$) { return (p1__495$HASH$ * p2__496$HASH$); }, 1, args); }; var identity = function (x) { return x; }; var reverse = function (x) { return x.slice(0).reverse(); }; var compare = function (x, y) { if ((x === y)) { return 0; } else { if ((x > y)) { return 1; } else { if ((x < y)) { return -1; }; }; }; }; var int$STAR$ = function (x) { if (("number" === typeof(x))) { return (x | 0); }; }; var max = Math.max; var min = Math.min; var pos$QUEST$ = function (x) { return (("number" === typeof(x)) && (x > 0)); }; var neg$QUEST$ = function (x) { return (("number" === typeof(x)) && (x < 0)); }; var integer$QUEST$ = function (n) { return (n === int$STAR$(n)); }; var even$QUEST$ = function (n) { return (0 === (n % 2)); }; var odd$QUEST$ = function (n) { return (1 === (n % 2)); }; var rand = function () { var args = arguments; switch (count(args)) { case 0: return (function () { var f = function () { return Math.random(); }; return f.apply(0, args);  })();  case 1: return (function () { var f = function (n) { return (n * Math.random()); }; return f.apply(0, args);  })();  }; }; var quot = function (x, y) { return int$STAR$((x / y)); }; var complement = function (f) { return function () { var _temp_1016 = Array.prototype.slice.call(arguments), args = _temp_1016.slice(0); return !f.apply(0, args); }; }; var constantly = function (x) { return function () { return x; }; }; var conj = function () { var _temp_1017 = Array.prototype.slice.call(arguments), coll = _temp_1017[0], xs = _temp_1017.slice(1); if (empty$QUEST$(coll)) { return xs; } else { return coll.concat(xs); }; }; var cons = function (x, coll) { return [x].concat(coll); }; var assoc = function () { var _temp_1018 = Array.prototype.slice.call(arguments), m = _temp_1018[0], kvs = _temp_1018.slice(1); var ret = ((m instanceof Array) ? m.slice(0) : merge(m, {})); return (function () { for (var kv_tail = kvs; true;) { if (kv_tail) {  var _temp_1019 = kv_tail, k = _temp_1019[0], v = _temp_1019[1]; ret[k] = v; var _temp_1020 = [((1 < count(((1 < count(kv_tail)) ? kv_tail.slice(1) : void(0)))) ? ((1 < count(kv_tail)) ? kv_tail.slice(1) : void(0)).slice(1) : void(0))];
+ kv_tail = _temp_1020[0]; continue; } else { return ret; }; break; } }).call(this); }; var dissoc = function () { var _temp_1021 = Array.prototype.slice.call(arguments), m = _temp_1021[0], ks = _temp_1021.slice(1); var ret = merge(m, {}); (function () { var coll497 = ks; for (var k498 in coll497) { var k = coll497[k498]; delete ret[k]; }; })(); return ret; }; var find = function (m, k) { if ((k in m)) { return [k,m[k]]; }; }; var every$QUEST$ = function (pred, coll) { if (empty$QUEST$(coll)) { return true; } else { if (pred(coll[0])) { return every$QUEST$(pred, ((1 < count(coll)) ? coll.slice(1) : void(0))); } else { if ('else') { return false; }; }; }; }; var some = function (pred, coll) { if (coll) {  return (pred(coll[0]) || some(pred, ((1 < count(coll)) ? coll.slice(1) : void(0)))); }; }; var concat = function () { var _temp_1022 = Array.prototype.slice.call(arguments), xs = _temp_1022.slice(0); for (var ret = [], xs_tail = xs; true;) { if (xs_tail) { var _temp_1023 = [ret.concat(xs_tail[0]),((1 < count(xs_tail)) ? xs_tail.slice(1) : void(0))];
+ ret = _temp_1023[0]; xs_tail = _temp_1023[1]; continue; } else { return ret; }; break; }; }; var mapcat = function (f, coll) { return concat.apply(0, map(f, coll)); }; var drop = function (n, coll) { if (pos$QUEST$(n)) {  var temp__4092__auto__ = coll; if (temp__4092__auto__) {  return (function () { var s = temp__4092__auto__; return s.slice(n);  })(); };; }; }; var take = function (n, coll) { if (pos$QUEST$(n)) {  var temp__4092__auto__ = coll; if (temp__4092__auto__) {  return (function () { var s = temp__4092__auto__; return s.slice(0, n);  })(); };; }; }; var Cl2Set = function (coll) { var that = this; return (function () { var coll499 = coll; for (var k500 in coll499) { var k = coll499[k500]; that[k] = true; }; })(); }; var hash_set = function () { var _temp_1024 = Array.prototype.slice.call(arguments), ks = _temp_1024.slice(0); return new Cl2Set(ks); }; var set = function (coll) { return new Cl2Set(coll); }; var sort = function () { var args = arguments; switch (count(args)) { case 1: return (function () { var f = function (coll) { return Array.prototype.slice.call(coll, 0).sort(); }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (comp, x) { return Array.prototype.slice.call(x, 0).sort(comp); }; return f.apply(0, args);  })();  }; }; var take_while = function (pred, coll) { var temp__4092__auto__ = coll; if (temp__4092__auto__) {  return (function () { var s = temp__4092__auto__; if (pred(s[0])) {  return conj(take_while(pred, s.slice(1)), s[0]); };  })(); };; }; var drop_last = function (n, coll) { return coll.slice(0, (coll.length - n)); }; var take_last = function (n, coll) { return coll.slice((coll.length - n)); }; var drop_while = function (pred, coll) { var step = function (pred, coll) { var s = coll; if ((s && pred(s[0]))) { return step(pred, s.slice(1)); } else { return s; }; }; return step(pred, coll); }; var cycle = function (coll, n) { for (var ret = [], n = n; true;) { if (zero$QUEST$(n)) { return ret; } else { var _temp_1025 = [ret.concat(coll),(n - 1)];
+ ret = _temp_1025[0]; n = _temp_1025[1]; continue; }; break; }; }; var split_at = function (n, coll) { return [take(n, coll),drop(n, coll)]; }; var repeat = function (n, x) { for (var ret = [], n = n; true;) { if (zero$QUEST$(n)) { return ret; } else { var _temp_1026 = [conj(ret, x),(n - 1)];
+ ret = _temp_1026[0]; n = _temp_1026[1]; continue; }; break; }; }; var iterate = function (f, x, n) { var ret = []; return cons(x, (function () { for (var v = x, i = (n - 1); true;) { if (zero$QUEST$(i)) { return ret; } else { var _temp_1027 = [(function () { var val = f(v); ret.push(val); return val;  })(),(i - 1)];
+ v = _temp_1027[0]; i = _temp_1027[1]; continue; }; break; } }).call(this)); }; var split_with = function (pred, coll) { return [take_while(pred, coll),drop_while(pred, coll)]; }; var zipmap = function (keys, vals) { var map = {}; return (function () { for (var ks = keys, vs = vals; true;) { if ((ks && vs)) {  map[ks[0]] = vs[0]; var _temp_1028 = [((1 < count(ks)) ? ks.slice(1) : void(0)),((1 < count(vs)) ? vs.slice(1) : void(0))];
+ ks = _temp_1028[0]; vs = _temp_1028[1]; continue; } else { return map; }; break; } }).call(this); }; var nthnext = function (coll, n) { for (var n = n, xs = coll; true;) { if ((xs && pos$QUEST$(n))) { var _temp_1029 = [(n - 1),((1 < count(xs)) ? xs.slice(1) : void(0))];
+ n = _temp_1029[0]; xs = _temp_1029[1]; continue; } else { return xs; }; break; }; }; var nthrest = function (coll, n) { for (var n = n, xs = coll; true;) { if ((xs && pos$QUEST$(n))) { var _temp_1030 = [(n - 1),xs.slice(1)];
+ n = _temp_1030[0]; xs = _temp_1030[1]; continue; } else { return xs; }; break; }; }; var rand_int = function (n) { return int$STAR$(rand(n)); }; var rand_nth = function (coll) { return coll[rand_int(count(coll))]; }; var range$STAR$ = function (start, end, step) { var ret = [], comp = (pos$QUEST$(step) ? function (p1__501$HASH$, p2__502$HASH$) { return (p1__501$HASH$ < p2__502$HASH$); } : function (p1__503$HASH$, p2__504$HASH$) { return (p1__503$HASH$ > p2__504$HASH$); }); return (function () { for (var i = start; true;) { if (comp(i, end)) {  ret.push(i); var _temp_1031 = [(i + step)];
+ i = _temp_1031[0]; continue; } else { if (comp(i, end)) { return cons(ret, range$STAR$(i, end, step)); } else { return ret; }; }; break; } }).call(this); }; var range = function () { var args = arguments; switch (count(args)) { case 1: return (function () { var f = function (end) { return range$STAR$(0, end, 1); }; return f.apply(0, args);  })();  case 2: return (function () { var f = function (start, end) { return range$STAR$(start, end, 1); }; return f.apply(0, args);  })();  case 3: return (function () { var f = function (start, end, step) { return range$STAR$(start, end, step); }; return f.apply(0, args);  })();  }; }; var partition = function () { var args = arguments; switch (count(args)) { case 2: return (function () { var f = function (n, coll) { return partion(n, n, coll); }; return f.apply(0, args);  })();  case 3: return (function () { var f = function (n, step, coll) { var temp__4092__auto__ = coll; if (temp__4092__auto__) {  return (function () { var s = temp__4092__auto__; return (function () { var temp__4092__auto__ = take(n, s); if (temp__4092__auto__) {  return (function () { var p = temp__4092__auto__; if ($EQ$$STAR$(n, count(p))) { return cons(p, partition(n, step, nthrest(s, step))); } else { return []; };  })(); };  })();  })(); };; }; return f.apply(0, args);  })();  case 4: return (function () { var f = function (n, step, pad, coll) { var temp__4092__auto__ = coll; if (temp__4092__auto__) {  return (function () { var s = temp__4092__auto__; return (function () { var temp__4092__auto__ = take(n, s); if (temp__4092__auto__) {  return (function () { var p = temp__4092__auto__; if ($EQ$$STAR$(n, count(p))) { return cons(p, partition(n, step, pad, nthrest(s, step))); } else { return [take(n, concat(p, pad))]; };  })(); };  })();  })(); };; }; return f.apply(0, args);  })();  }; }; var subs = function (s, start, end) { return s.slice(start, end); }; var println = (("object" === typeof(console)) ? console.log : function () { }); var trampoline = function () { var args = arguments; switch (count(args)) { case 1: return (function () { var f = function (f) { for (var ret = f(); true;) { if (("function" === typeof(ret))) { var _temp_1032 = [ret()];
+ ret = _temp_1032[0]; continue; } else { return ret; }; break; }; }; return f.apply(0, args);  })();  default: return (function () { var f = function () { var _temp_1033 = Array.prototype.slice.call(arguments), f = _temp_1033[0], args = _temp_1033.slice(1); return trampoline(function () { return f.apply(0, args); }); }; return f.apply(0, args);  })(); }; }; var assoc$EXCL$ = function () { var _temp_1034 = Array.prototype.slice.call(arguments), m = _temp_1034[0], kvs = _temp_1034.slice(1); for (var kv_tail = kvs; true;) { if (kv_tail) {  var _temp_1035 = kv_tail, k = _temp_1035[0], v = _temp_1035[1]; m[k] = v; var _temp_1036 = [((1 < count(((1 < count(kv_tail)) ? kv_tail.slice(1) : void(0)))) ? ((1 < count(kv_tail)) ? kv_tail.slice(1) : void(0)).slice(1) : void(0))];
+ kv_tail = _temp_1036[0]; continue; } else { return m; }; break; }; }; var dissoc$EXCL$ = function () { var _temp_1037 = Array.prototype.slice.call(arguments), m = _temp_1037[0], ks = _temp_1037.slice(1); (function () { var coll513 = ks; for (var k514 in coll513) { var k = coll513[k514]; delete m[k]; }; })(); return m; }; var reverse$EXCL$ = function (x) { return x.reverse(); }; var conj$EXCL$ = function () { var _temp_1038 = Array.prototype.slice.call(arguments), coll = _temp_1038[0], xs = _temp_1038.slice(1); coll.push.apply(coll, xs); return coll; }; var cons$EXCL$ = function () { var _temp_1039 = Array.prototype.slice.call(arguments), coll = _temp_1039[0], xs = _temp_1039.slice(1); coll.unshift.apply(coll, xs); return coll; }; var merge$EXCL$ = function () { var _temp_1040 = Array.prototype.slice.call(arguments), m0 = _temp_1040[0], ms = _temp_1040.slice(1); (function () { var coll515 = ms; for (var k516 in coll515) { var m = coll515[k516]; (function () { var coll517 = m; for (var k in coll517) { var v = coll517[k]; m0[k] = v; }; })(); }; })(); return m0; };// <-- Starts included file:  ../lib/angular.cl2
+
+var equal = function (actual, expected, message) {
+    /* An other implement of qunit's equal that use Chlorine's = to compare values */
+    return QUnit.push($EQ$$STAR$(expected, actual), actual, expected, message);
+};// defining macro defmodule
+// defining macro defroutetable
+// defining macro fn-di
+// defining macro defn-di
+// defining macro ng-test
+// defining macro def!
+// defining macro defn!
+// defining macro def$
+// defining macro def!$
+// defining macro defn$
+// defining macro set-last-app
+// defining macro defapp
+// defining macro defsinglemodule
+// defining macro defdirective
+// defining macro defcontroller
+// defining macro defservice
+// defining macro deffactory
+// defining macro deffilter
+// defining macro defroute
+// Ends included file:  ../lib/angular.cl2  -->
+
+
+void(0);
+var myApp = angular.module("myApp", ["ui.bootstrap"]);;
+myApp.directive("mouseoverRemoveClass", function () {
+        return function (scope, elm, attrs) {
+            return elm.bind("mouseenter", function () {
+                    return elm.removeClass(attrs.mouseoverRemoveClass);
+                }).bind("mouseleave", function () {
+                    return elm.addClass(attrs.mouseoverRemoveClass);
+                });
+        };
+    });
+myApp.controller("pricingCtrl", ["$scope",function ($scope) {
+        $scope.features = [{'name' : "Feature Foo",'image' : "img/feature.jpg",'choices' : [10,20,30]},{'name' : "Feature Bar",'image' : "img/feature.jpg",'choices' : [10,20,30]},{'name' : "Feature Bazz",'image' : "img/feature.jpg",'choices' : [10,20,30,40]}];
+        var blank = function () {
+            return repeat(count($scope.features), 0);
+        };
+        $scope.total = blank();
+        $scope.sum = function () {
+            return $PLUS$.apply(0, $scope.total);
+        };
+    }]);
+myApp.controller("priceRowCtrl", ["$scope",function ($scope) {
+        $scope.currentValue = void(0);
+        $scope.hoverValue = void(0);
+        var blank = function () {
+            return repeat(count($scope.feature.choices), 0);
+        };
+        $scope.clearChoices = function () {
+            $scope.currentValue = void(0);
+            $scope.currentChoices = blank();
+        };
+        $scope.clearChoices();
+        $scope.setChoice = function (position, choice) {
+            var chosen$QUEST$ = $scope.isChosen(position);
+            $scope.clearChoices();
+            if (chosen$QUEST$) {
+                return void(0);
+            } else {
+                
+                $scope.currentValue = choice;
+                return assoc$EXCL$($scope.currentChoices, position, choice);
+            };
+        };
+        $scope.isChosen = function (position) {
+            return (0 !== $scope.currentChoices[position]);
+        };
+        $scope.clearHovers = function () {
+            $scope.hoverValue = void(0);
+            $scope.currentHovers = blank();
+        };
+        $scope.clearHovers();
+        $scope.isHovered = function (position) {
+            return (0 !== $scope.currentHovers[position]);
+        };
+        $scope.setHover = function (position, choice) {
+            $scope.clearHovers();
+            $scope.hoverValue = choice;
+            return assoc$EXCL$($scope.currentHovers, position, choice);
+        };
+        return $scope.$watch("hoverValue+currentValue", function () {
+                $scope.preview = ($scope.hoverValue || $scope.currentValue || 0);
+                return assoc$EXCL$($scope.$parent.total, $scope.$index, $scope.preview);
+            });
+    }]);
+myApp.filter("autoWidth", function () {
+        return function (choices) {
+            return {'width' : ("" + (75 / count(choices)) + "%")};
+        };
+    });
+myApp.filter("currentClass", function () {
+        return function (chosen$QUEST$, hovered$QUEST$) {
+            return ((chosen$QUEST$ ? "icon-success text-success" : "") + (hovered$QUEST$ ? " icon-hand-right" : "") + (!(chosen$QUEST$ || hovered$QUEST$) ? " icon-muted" : ""));
+        };
+    });
+myApp.filter("currentTooltip", function () {
+        return function (chosen$QUEST$) {
+            if (chosen$QUEST$) {
+                return "Click to uncheck";
+            } else {
+                return "Click to check";
+            };
+        };
+    });
