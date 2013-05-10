@@ -8,11 +8,8 @@
   "/default" {:controller 'emptyCtrl
               :template
               (hiccup
-               [:div.input-append
-                [:input.input-small {:type "text" :data-date-format "dd/mm/yyyy"
-                                     :bs-datepicker ""}]
-                [:button.btn {:data-toggle "datepicker"}
-                 [:i.icon-calendar]]])}
+               [:h2
+                "This is a demo. Please choose an account to log in."])}
   "/profile" {:controller 'profileCtrl
               :template
               (hiccup
