@@ -187,11 +187,11 @@
                       [:i.icon-ok
                        {:ng-hide "record.paid"
                         :style "color: #369629"
-                        :ng-click "register_course(course.id)"}]
+                        :ng-click "confirm_payment($index, record.id, record.course_id)"}]
                       [:i.icon-remove
                        {:ng-show "record.paid"
                         :style "color: #BD4247"
-                        :ng-click "unregister_course(course.id)"}]]]]])}
+                        :ng-click "unconfirm_payment($index, record.id, record.course_id)"}]]]]])}
   "/alias" "/default"
   :default "/default")
 
@@ -310,6 +310,7 @@
 (defcontroller accountantCtrl [$scope session courses users]
   (def$ session session)
   (def$ courses courses.courses)
+
   (def$ registrations
     (for [course courses.courses
           student course.registered]
@@ -319,7 +320,25 @@
               :paid student.paid}
              (select-keys
               (first (filter #(== (:id student) (:id %)) users.users))
-              [:name :username :dob :email])))))
+              [:id :name :username :dob :email]))))
+
+  (defn$ confirm_payment [index student-id course-id]
+    (doseq [course courses.courses
+            :when (= course-id (:id course))
+            student course.registered
+            :when (= student-id (:id student))]
+      (assoc! student :paid true))
+    (assoc! (get $scope.registrations index)
+            :paid true))
+
+  (defn$ unconfirm_payment [index student-id course-id]
+    (doseq [course courses.courses
+            :when (= course-id (:id course))
+            student course.registered
+            :when (= student-id (:id student))]
+      (assoc! student :paid false))
+    (assoc! (get $scope.registrations index)
+            :paid false)))
 
 (defservice session
   "Stores current logged-in user's information."
