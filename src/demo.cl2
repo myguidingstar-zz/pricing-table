@@ -125,9 +125,11 @@
               :template
               (hiccup
                [:h2 "Current courses"]
-               [:h3 "Your payment status"]
-               [:div.progress.progress-info.progress-striped.active
-                [:div.bar {:style "width: 50%"}]]
+               [:div {:ng-show "courses|show_payment_status:session.id"}
+                [:h3 "Your've paid for {{courses|total_paid:session.id}}/{{courses|total_registered:session.id}} registered courses."]
+                [:div.progress.progress-info.progress-striped.active
+                 [:div.bar
+                  {:style "width: {{courses|payment_percent:session.id}}%"}]]]
                [:form.well.well-small
                 {:style "margin: 30px 0px"}
                 [:input.search-query
@@ -369,3 +371,29 @@
     (if (registered? course user-id)
       "warning"
       "")))
+
+(deffilter total_paid []
+  [courses user-id]
+  (count (filter #(paid? % user-id) courses)))
+
+(deffilter total_registered []
+  [courses user-id]
+  (count (filter #(registered? % user-id) courses)))
+
+(defn payment-percent
+  "Helper function"
+  [courses user-id]
+  (or (* 100 (/ (count (filter #(paid? % user-id) courses))
+                (count (filter #(registered? % user-id) courses))))
+      0))
+
+(deffilter payment_percent []
+  [courses user-id]
+  (payment-percent courses user-id))
+
+(deffilter show_payment_status []
+  "Only show payment status if current student has some unpaid courses."
+  [courses user-id]
+  (let [x (payment-percent courses user-id)]
+    (and (< 0 x)
+         (< x 100))))
