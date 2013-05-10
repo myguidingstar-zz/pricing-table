@@ -153,11 +153,15 @@
                   [:td "-"]
                   [:td
                    [:i.icon-ok
-                    {:ng-show "course|can_register:session.id"
+                    {:tooltip "Register course"
+                     :tooltip-placement "right"
+                     :ng-show "course|can_register:session.id"
                      :style "color: #369629"
                      :ng-click "register_course(course.id)"}]
                    [:i.icon-remove
-                    {:ng-show "course|can_remove:session.id"
+                    {:tooltip "Unregister course"
+                     :tooltip-placement "right"
+                     :ng-show "course|can_remove:session.id"
                      :style "color: #BD4247"
                      :ng-click "unregister_course(course.id)"}]]]]])}
 
@@ -185,11 +189,15 @@
                      [:td "{{record.dob}}"]
                      [:td
                       [:i.icon-ok
-                       {:ng-hide "record.paid"
+                       {:tooltip "Confirm payment"
+                        :tooltip-placement "right"
+                        :ng-hide "record.paid"
                         :style "color: #369629"
                         :ng-click "confirm_payment($index, record.id, record.course_id)"}]
                       [:i.icon-remove
-                       {:ng-show "record.paid"
+                       {:tooltip "Unconfirm payment"
+                        :tooltip-placement "right"
+                        :ng-show "record.paid"
                         :style "color: #BD4247"
                         :ng-click "unconfirm_payment($index, record.id, record.course_id)"}]]]]])}
   "/alias" "/default"
