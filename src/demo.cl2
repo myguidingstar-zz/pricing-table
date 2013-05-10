@@ -23,35 +23,36 @@
                  [:label.control-label "Name"]
                  [:div.controls
                   [:input.span5
-                   {:ng-model "name" :type "text" :required "" :name "name"}]]]
+                   {:ng-model "buffer.name" :type "text" :required "" :name "name"}]]]
                 [:div.control-group
                  [:label.control-label "Email"]
                  [:div.controls
                   [:input.span4
-                   {:ng-model "email" :type "email" :required ""}]]]
+                   {:ng-model "buffer.email" :type "email" :required ""}]]]
                 [:div.control-group
                  [:label.control-label "Phone"]
                  [:div.controls
                   [:input.span4
-                   {:ng-model "email" :type "text" :required ""}]]]
+                   {:ng-model "buffer.phone" :type "text" :required ""}]]]
                 [:div.control-group
                  [:label.control-label "Password"]
                  [:div.controls
                   [:input.span4
-                   {:ng-model "password" :type "password" :required ""}]]]
+                   {:ng-model "buffer.password" :type "password" :required ""}]]]
                 [:div.control-group
                  [:label.control-label "DOB"]
                  [:div.controls
                   [:div.input-append
                    [:input.span2
                     {:type "text" :data-date-format "dd/mm/yyyy"
-                     :ng-model "dob"
+                     :ng-model "buffer.dob"
                      :bs-datepicker "" :required ""}]
                    [:button.btn {:data-toggle "datepicker"}
                     [:i.icon-calendar]]]]]
                 [:div.control-group
                  [:div.controls
                   [:button.btn.btn-success
+                   {:ng-click "save_profile()"}
                    "Save"]]]])}
   "/faculty" {:controller 'facultyCtrl
               :template
@@ -197,7 +198,8 @@
     "Updates current session to passed user."
     [user]
     (merge! session
-            (select-keys user [:id :group :username :name])
+            (select-keys user [:id :group :username :name
+                               :email :phone :dob])
             {:url (:url (get users.groups (:group user)))
              :logged_in true})
     ($location.path (:url session))
@@ -205,7 +207,17 @@
 
 (defcontroller emptyCtrl [])
 
-(defcontroller profileCtrl [])
+(defcontroller profileCtrl [$scope session users]
+  (def$ buffer (select-keys session
+                            [:name :email :phone :dob]))
+
+  (defn$ save_profile []
+    (merge! session (select-keys $scope.buffer
+                                 [:name :email :phone :dob]))
+    (doseq [user users]
+      (when (= session.id (:id user))
+        (merge! user (select-keys $scope.buffer
+                                  [:name :email :phone :dob]))))))
 
 (defcontroller facultyCtrl [$scope session courses]
   (def$ session session)
