@@ -158,7 +158,7 @@
                    [:i.icon-remove
                     {:ng-show "course|can_remove:session.id"
                      :style "color: #BD4247"
-                     :ng-click "remove_course(course.id)"}]]]]])}
+                     :ng-click "unregister_course(course.id)"}]]]]])}
 
   "/accountant" {:controller 'emptyCtrl
                  :template (hiccup [:foo "Accountant, really?"])}
@@ -250,11 +250,18 @@
 (defcontroller studentCtrl [$scope session courses]
   (def$ session session)
   (def$ courses courses.courses)
+
   (defn$ register_course [course-id]
     (doseq [course courses.courses]
       (when (= course-id (:id course))
         (conj! (:registered course)
-               {:id session.id})))))
+               {:id session.id}))))
+
+  (defn$ unregister_course [course-id]
+    (doseq [course courses.courses]
+      (when (= course-id (:id course))
+        (doseq [[n student] (:registered course)]
+          (dissoc! (:registered course) n))))))
 
 (defservice session
   "Stores current logged-in user's information."
