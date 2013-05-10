@@ -45,7 +45,7 @@
         [:h3 "Please choose an user to login as"]]
        [:div.modal-body
         [:ul {:ng-repeat "user in users"}
-         [:li [:a {:ng-click "login_as(user)"} "{{user.name}}"]]]]
+         [:li [:a {:ng-click "login_as(user.id)"} "{{user.name}}"]]]]
        [:div.modal-footer
         [:button.btn.btn-warning.cancel
          {:ng-click "close()"}

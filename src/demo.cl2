@@ -196,8 +196,11 @@
 
   (defn$ login_as
     "Updates current session to passed user."
-    [user]
+    [user-id]
+    (def user (first (filter #(= user-id (:id %))
+                             users.users)))
     (merge! session
+            {:name "" :email "" :phone "" :dob ""} ;;clear previous session
             (select-keys user [:id :group :username :name
                                :email :phone :dob])
             {:url (:url (get users.groups (:group user)))
@@ -214,7 +217,7 @@
   (defn$ save_profile []
     (merge! session (select-keys $scope.buffer
                                  [:name :email :phone :dob]))
-    (doseq [user users]
+    (doseq [user users.users]
       (when (= session.id (:id user))
         (merge! user (select-keys $scope.buffer
                                   [:name :email :phone :dob]))))))
