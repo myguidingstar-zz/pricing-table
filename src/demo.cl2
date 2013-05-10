@@ -154,7 +154,7 @@
                    [:i.icon-ok
                     {:ng-show "course|can_register:session.id"
                      :style "color: #369629"
-                     :ng-click "remove_course(course.id)"}]
+                     :ng-click "register_course(course.id)"}]
                    [:i.icon-remove
                     {:ng-show "course|can_remove:session.id"
                      :style "color: #BD4247"
@@ -250,7 +250,11 @@
 (defcontroller studentCtrl [$scope session courses]
   (def$ session session)
   (def$ courses courses.courses)
-  )
+  (defn$ register_course [course-id]
+    (doseq [course courses.courses]
+      (when (= course-id (:id course))
+        (conj! (:registered course)
+               {:id session.id})))))
 
 (defservice session
   "Stores current logged-in user's information."
