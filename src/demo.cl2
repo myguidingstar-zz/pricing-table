@@ -161,8 +161,37 @@
                      :style "color: #BD4247"
                      :ng-click "unregister_course(course.id)"}]]]]])}
 
-  "/accountant" {:controller 'emptyCtrl
-                 :template (hiccup [:foo "Accountant, really?"])}
+  "/accountant" {:controller 'accountantCtrl
+                 :template
+                 (hiccup
+                  [:h2 "Current registration"]
+                  [:form.well.well-small
+                   {:style "margin: 30px 0px"}
+                   [:input.search-query
+                    {:ng-model "query" :type "text"
+                     :placeholder "filter list"}]]
+                  [:table.table.table-bordered
+                   [:thead
+                    [:tr
+                     [:th "Course"]
+                     [:th "Student"]
+                     [:th "DOB"]
+                     [:th "Actions"]]]
+                   [:tbody
+                    [:tr {:ng-repeat "record in registrations | filter:query"}
+                     [:td
+                      "{{record.course_title}}"]
+                     [:td "{{record.name}}"]
+                     [:td "{{record.dob}}"]
+                     [:td
+                      [:i.icon-ok
+                       {:ng-hide "record.paid"
+                        :style "color: #369629"
+                        :ng-click "register_course(course.id)"}]
+                      [:i.icon-remove
+                       {:ng-show "record.paid"
+                        :style "color: #BD4247"
+                        :ng-click "unregister_course(course.id)"}]]]]])}
   "/alias" "/default"
   :default "/default")
 
@@ -277,6 +306,20 @@
       (when (= course-id (:id course))
         (doseq [[n student] (:registered course)]
           (dissoc! (:registered course) n))))))
+
+(defcontroller accountantCtrl [$scope session courses users]
+  (def$ session session)
+  (def$ courses courses.courses)
+  (def$ registrations
+    (for [course courses.courses
+          student course.registered]
+      (merge {:course_id course.id
+              :course_title course.title
+              :course_desc course.desc
+              :paid student.paid}
+             (select-keys
+              (first (filter #(== (:id student) (:id %)) users.users))
+              [:name :username :dob :email])))))
 
 (defservice session
   "Stores current logged-in user's information."
