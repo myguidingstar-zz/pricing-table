@@ -62,3 +62,9 @@ compare vectors and maps, etc), you can skip the library by:
 npm run-script bare-compile
 ```
 Now open `src/index.html` in your favourite browser and enjoy!
+
+You can even use [nodefront](http://karthikv.github.io/nodefront/) to auto reload files on browser:
+
+```
+nodefront serve -l
+```
