@@ -1,3 +1,4 @@
 components
 *.js
+*.html
 testem.log
