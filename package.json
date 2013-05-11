@@ -1,7 +1,7 @@
 {
-  "name": "angular-cl2",
+  "name": "pricing-table",
   "version": "0.2.0",
-  "description": "Angular macros for ChlorineJS (a subset of Clojure)",
+  "description": "An AngularJS + ChlorinJS app",
   "scripts": {
     "watch": "cl2c -d -p test/test.cl2 test/test.hic",
     "live-test": "testem -f test/testem.json",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/chlorinejs/angular-cl2.git"
+    "url": "http://github.com/myguidingstar/pricing-table.git"
   },
   "keywords": [
     "angular",
@@ -27,6 +27,7 @@
   },
   "analyze": false,
   "devDependencies": {
+    "angular-cl2" : "0.2.1",
     "chloric"  :  "0.1.11",
     "testem"   :  "*"
   },
