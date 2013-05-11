@@ -1,4 +1,4 @@
-(include! "../lib/angular.cl2")
+(include! "../node_modules/angular-cl2/lib/angular.cl2")
 
 (defapp myApp [ui.bootstrap])
 ;; don't have to specify app name as compiler remember the last app name
