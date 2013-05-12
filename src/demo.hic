@@ -20,7 +20,7 @@
   [:script {:src "components/jquery/jquery.min.js"}]
   [:script {:src "components/angular/angular.min.js"}]
   [:script {:src "components/angular-bootstrap/ui-bootstrap-tpls.min.js"}]
-  [:script {:src "components/angular-strap/dist/angular-strap.min.js"}]
+  [:script {:src "components/angular-strap/dist/angular-strap.js"}]
   [:script {:src "components/angular-strap/vendor/bootstrap-datepicker.js"}]
   [:script {:src "demo.js"}]]
  [:body
