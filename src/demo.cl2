@@ -1,4 +1,4 @@
-(include! "../node_modules/angular-cl2/lib/angular.cl2")
+(load-file "../node_modules/angular-cl2/src/angular.cl2")
 
 (defapp myApp [ui.bootstrap $strap.directives])
 ;; don't have to specify app name as compiler remember the last app name

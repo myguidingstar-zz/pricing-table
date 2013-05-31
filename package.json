@@ -27,8 +27,8 @@
   },
   "analyze": false,
   "devDependencies": {
-    "angular-cl2" : "0.2.1",
-    "chloric"  :  "0.1.11",
+    "angular-cl2" : "0.2.2",
+    "chloric"  :  "0.1.13",
     "testem"   :  "*"
   },
   "license": "EPL",
